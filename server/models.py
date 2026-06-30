@@ -1,15 +1,3 @@
-
-"""
-User
-  Board
-    Checklist
-      ChecklistItem
-    Itinerary
-    Notes
-  Board
-    ...
-"""
-
 from marshmallow import Schema, fields
 from sqlalchemy.ext.hybrid import hybrid_property
 from flask import Flask
@@ -17,6 +5,8 @@ from flask import Flask
 from config import db, bcrypt
 
 class Users(db.Models):
+  __tablename__ = "users"
+
   id = db.Column(db.Integer, primary_key = True)
   username = db.Column(db.String, nullable=False, unique=True)
   email = db.Column(db.String, nullable=False, unique=True)
@@ -45,6 +35,8 @@ class Users(db.Models):
     return f'<Username: {self.username}, Email: {self.email}>'
   
 class Board(db.Models):
+  __tablename__ = "board"
+
   id = db.Column(db.Integer, primary_key=True)
   title = db.Column(db.String, nullable=False)
   description = db.Column(db.String)
@@ -58,3 +50,41 @@ class Board(db.Models):
   
   def __repr__(self):
     return f'<Trip Board {self.id}: {self.title}. Description: "{self.description}". Travellers: {self.travellers}. Destination: {self.destination}. From {self.start_date} to {self.end_date}>'
+
+class CheckList(db.Models):
+  __tablename__ = "checklist"
+
+  id = db.Column(db.Integer, primary_key=True)
+  title = db.Column(db.String, nullable=False)
+  assigned_to = db.Column(db.String)
+  
+  board_id = db.Column(db.Integer(), db.ForeignKey('board.id'), nullable=False)
+
+  def __repr__(self):
+    return f'Checklist {self.id}: {self.title}. Assigned to: {self.assigned_to}'
+
+class CheckListItem(db.Models):
+  __tablename__ = "checklistitem"
+
+  id = db.Column(db.Integer, primary_key=True)
+  item_name = db.Column(db.String, nullable=False)
+  packed = db.Column(db.Boolean)
+  assigned_to = db.Column(db.String)
+
+  checklist_id = db.Column(db.Integer(), db.ForeignKet('checklist.id'), nullable=False)
+
+  def __repr__(self):
+    return f'Checklist Item {self.id}: {self.item_name}. Assigned to: {self.assigned_to}. Packed {self.packed}'
+
+class Itinerary(db.Models):
+  __tablename__ = "intinerary"
+
+  id = db.Column(db.Integer, primary_key=True)
+  activity = db.Column(db.String, nullable=False)
+  time = db.Column(db.String)
+  day = db.Column(db.String)
+
+  board_id = db.Column(db.Integer(), db.ForeignKey('board.id'), nullable=False)
+
+  def __repr__(self):
+    return f'Itinerary {self.id}. Activity: {self.activity}. Time and day: {self.time} on {self.day}'
