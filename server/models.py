@@ -140,8 +140,8 @@ class TripSchema(Schema):
   notes = fields.String()
 
   # nested under users
-  checklists = fields.Nested(CheckListSchema)
-  itinerarylist = fields.Nested(ItineraryListSchema)
+  checklists = fields.Nested(lambda:CheckListSchema())
+  itinerarylist = fields.Nested(lambda:ItineraryListSchema())
 
 class CheckListSchema(Schema):
   id = fields.Int()
