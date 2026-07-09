@@ -62,8 +62,104 @@ class Login(Resource):
     user = User.query.filter(User.username == username).first()
 
     # authenticate user by comparing passwords of the queried user
-    if user and user.authenticated(password):
+    if user and user.authenticate(password):
       access_token = create_access_token(identity=user.id)
       return make_response(jsonify(token=access_token, user=UserSchema().dump(user)), 200)
 
     return {'errors': ['401 Unauthorized']}, 401
+
+class TripIndex(Resource):
+
+  # get multiple trips
+  def get(self):
+    # requires login, gets user id from login
+    user_id = get_jwt_identity()
+
+    # pagination
+    page = request.args.get('page', 1, type=int)
+    per_page = request.args.get('per_page', 10, type=int)
+
+    # dynamic pagination
+    pagination = Trip.query.filter(
+      Trip.user_id == user_id   # only trips belonging to that user are returned
+    ).paginate(page=page, per_page=per_page, error_out=False)
+
+    trips = pagination.items
+
+    return {
+      'trips': TripSchema(many=True).dump(trips),
+      'total_pages': pagination.pages,
+      'current_page': page,
+      'has_next': pagination.has_next,
+      'has_prev': pagination.has_prev
+      }, 200
+  
+  # add a new trip
+  @jwt_required()
+  def post(self):
+    request_json = request.get_json()
+
+    trip = Trip(
+      title=request_json.get('title'),
+      description=request_json.get('description'),
+      destination=request_json.get('destination'),
+      start_date=request_json.get('start_date'),
+      end_date=request_json.get('end_date'),
+      notes=request_json.get('notes'),
+      user_id=get_jwt_identity()
+    )
+
+    try:
+      db.session.add()
+      db.session.commit(trip)
+      return TripSchema().dump(trip), 201
+    except IntegrityError:
+      return {'errors': ['422 Unprocessable Entity']}, 422
+
+class TripById(Resource):
+
+  # get by id
+  @jwt_required()
+  def get(self, id):
+    trip = Trip.query.filter(
+      Trip.id == id,
+      Trip.user_id == get_jwt_identity()
+    ).first
+
+    if not trip:
+      return { 'errors': '404 Trip not found' }, 404
+    
+    return TripSchema().dump(trip), 200
+
+  # edit a trip
+  @jwt_required()
+  def patch(self):
+    trip = Trip.query.filter(
+      Trip.id == id, Trip.user_id == get_jwt_identity()
+    ).first
+
+    if not trip:
+      return {'error': '404 Trip not found'}, 404
+    
+    request_json = request.get_json()
+
+    if 'title' in request_json:
+      trip.title = request_json['title']
+    if 'description' in request_json:
+      trip.body = request_json['description']
+    if 'destination' in request_json:
+      trip.body = request_json['destination']
+    if 'start_date' in request_json:
+      trip.body = request_json['start_date']
+    if 'end_date' in request_json:
+      trip.body = request_json['end_date']
+    if 'notes' in request_json:
+      trip.body = request_json['notes']
+
+    db.session.commit()
+
+    return TripSchema().dump(trip), 200
+
+  @jwt_required()
+  def delete(self):
+    pass
