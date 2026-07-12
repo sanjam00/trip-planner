@@ -1,21 +1,20 @@
-from flask import make_response, jsonify, request, session
+from flask import make_response, jsonify, request
 from flask_restful import Resource # using resource allows for compartmentalization, grouping routes together
 from sqlalchemy.exc import IntegrityError
-from flask_jwt_extended import create_access_token, get_jwt_identity, verify_jwt_in_request, jwt_required
+from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required
 
 from config import app, db, jwt, api
 from models import (
-  User, UserSchema, 
-  Trip, TripSchema, 
-  CheckList, CheckListSchema, 
-  CheckListItem, CheckListItemSchema, 
-  ItineraryList, ItineraryListSchema, 
+  User, UserSchema,
+  Trip, TripSchema,
+  CheckList, CheckListSchema,
+  CheckListItem, CheckListItemSchema,
   ItineraryItem, ItineraryItemSchema
   )
 
 class Signup(Resource):
 
-  # sign up, create new uers
+  # sign up, create new users
   def post(self):
     request_json = request.get_json()
 
@@ -24,10 +23,10 @@ class Signup(Resource):
     password = request_json.get('password')
 
     # password confirmation
-    password_confirmation = request_json.get('password confirmation')
+    password_confirmation = request_json.get('password_confirmation')
     if password != password_confirmation:
       return {'error': 'Passwords do not match'}, 400
-    
+
     user = User(
       username = username,
       email = email
@@ -41,7 +40,7 @@ class Signup(Resource):
       return make_response(jsonify(token=access_token, user=UserSchema().dump(user)), 200)
     except IntegrityError:
       return {'errors': ['422 Unprocessable Entity']}, 422
-    
+
 class WhoAmI(Resource):
 
   # return identity of user, only accessible if logged in
@@ -50,7 +49,7 @@ class WhoAmI(Resource):
     user_id = get_jwt_identity()
     user = User.query.filter(User.id == user_id).first()
     return UserSchema().dump(user), 200
-  
+
 class Login(Resource):
 
   # login
@@ -94,7 +93,7 @@ class TripIndex(Resource):
       'has_next': pagination.has_next,
       'has_prev': pagination.has_prev
       }, 200
-  
+
   # add a new trip
   @jwt_required()
   def post(self):
@@ -126,7 +125,7 @@ class TripById(Resource):
 
     if not trip:
       return { 'errors': '404 Trip not found' }, 404
-    
+
     return TripSchema().dump(trip), 200
 
   # edit a trip
@@ -136,7 +135,7 @@ class TripById(Resource):
 
     if not trip:
       return {'error': '404 Trip not found'}, 404
-    
+
     request_json = request.get_json()
 
     if 'title' in request_json:
@@ -163,42 +162,50 @@ class TripById(Resource):
 
     if not trip:
       return {'error': '404 Trip not found'}, 404
-    
+
     db.session.delete(trip)
     db.session.commit()
 
     return {'200': 'Trip successfully deleted'}, 200
-  
+
 class CheckListIndex(Resource):
 
-  # get multiple checklists
+  # get multiple checklists for a trip
+  # registered at /trips/<int:trip_id>/checklists, so trip_id always comes from the route
   @jwt_required()
-  def get(self):
-    # requires login, gets user id from login
+  def get(self, trip_id):
     user_id = get_jwt_identity()
 
-    # pagination
+    # confirms the trip belongs to this user before showing its checklists
+    trip = Trip.query.filter( Trip.id == trip_id, Trip.user_id == user_id ).first()
+    if not trip:
+      return {'error': '404 Trip not found'}, 404
+
     page = request.args.get('page', 1, type=int)
     per_page = request.args.get('per_page', 10, type=int)
 
-    # dynamic pagination
-    pagination = CheckList.query.join(Trip).filter(
-    Trip.user_id == user_id
+    pagination = CheckList.query.filter(
+      CheckList.trip_id == trip_id
     ).paginate(page=page, per_page=per_page, error_out=False)
 
-    checklist = pagination.items
+    checklists = pagination.items
 
     return {
-      'trips': CheckListSchema(many=True).dump(checklist),
+      'checklists': CheckListSchema(many=True).dump(checklists),
       'total_pages': pagination.pages,
       'current_page': page,
       'has_next': pagination.has_next,
       'has_prev': pagination.has_prev
       }, 200
 
-  # add a new checklist
+  # add a new checklist to a trip
   @jwt_required()
   def post(self, trip_id):
+    # confirms the trip belongs to this user before adding to it
+    trip = Trip.query.filter( Trip.id == trip_id, Trip.user_id == get_jwt_identity() ).first()
+    if not trip:
+      return {'error': '404 Trip not found'}, 404
+
     request_json = request.get_json()
 
     checklist = CheckList(
@@ -215,23 +222,28 @@ class CheckListIndex(Resource):
 
 class CheckListById(Resource):
   # get by id
+  # CheckList has no user_id of its own, so ownership is checked by joining through Trip
   @jwt_required()
   def get(self, id):
-    checklist = CheckList.query.filter( CheckList.id == id, CheckList.user_id == get_jwt_identity() ).first()
+    checklist = CheckList.query.join(Trip).filter(
+      CheckList.id == id, Trip.user_id == get_jwt_identity()
+    ).first()
 
     if not checklist:
       return { 'errors': '404 Checklist not found' }, 404
-    
+
     return CheckListSchema().dump(checklist), 200
 
   # edit a list
   @jwt_required()
   def patch(self, id):
-    checklist = CheckList.query.filter( CheckList.id == id, CheckList.user_id == get_jwt_identity() ).first()
+    checklist = CheckList.query.join(Trip).filter(
+      CheckList.id == id, Trip.user_id == get_jwt_identity()
+    ).first()
 
     if not checklist:
       return {'error': '404 Checklist not found'}, 404
-    
+
     request_json = request.get_json()
 
     if 'title' in request_json:
@@ -244,96 +256,203 @@ class CheckListById(Resource):
   # delete a checklist
   @jwt_required()
   def delete(self, id):
-    checklist = CheckList.query.filter( CheckList.id == id, CheckList.user_id == get_jwt_identity() ).first()
+    checklist = CheckList.query.join(Trip).filter(
+      CheckList.id == id, Trip.user_id == get_jwt_identity()
+    ).first()
 
     if not checklist:
       return {'error': '404 Checklist not found'}, 404
-    
+
     db.session.delete(checklist)
     db.session.commit()
 
     return {'200': 'Checklist successfully deleted'}, 200
 
-class ItineraryListIndex(Resource):
-  # get multiple itineraries
+class CheckListItemIndex(Resource):
+
+  # add a new item to a checklist
   @jwt_required()
-  def get(self):
-    # requires login, gets user id from login
+  def post(self, checklist_id):
+    # confirms the checklist belongs (via trip) to this user before adding to it
+    checklist = CheckList.query.join(Trip).filter(
+      CheckList.id == checklist_id, Trip.user_id == get_jwt_identity()
+    ).first()
+    if not checklist:
+      return {'error': '404 Checklist not found'}, 404
+
+    request_json = request.get_json()
+
+    item = CheckListItem(
+      item_name=request_json.get('item_name'),
+      status=request_json.get('status', 'not packed'),
+      checklist_id=checklist_id
+    )
+
+    try:
+      db.session.add(item)
+      db.session.commit()
+      return CheckListItemSchema().dump(item), 201
+    except IntegrityError:
+      return {'errors': ['422 Unprocessable Entity']}, 422
+
+class CheckListItemById(Resource):
+
+  # edit an item (e.g. flip status to packed)
+  @jwt_required()
+  def patch(self, id):
+    item = CheckListItem.query.join(CheckList).join(Trip).filter(
+      CheckListItem.id == id, Trip.user_id == get_jwt_identity()
+    ).first()
+
+    if not item:
+      return {'error': '404 Checklist item not found'}, 404
+
+    request_json = request.get_json()
+
+    if 'item_name' in request_json:
+      item.item_name = request_json['item_name']
+    if 'status' in request_json:
+      item.status = request_json['status']
+
+    db.session.commit()
+
+    return CheckListItemSchema().dump(item), 200
+
+  # delete an item
+  @jwt_required()
+  def delete(self, id):
+    item = CheckListItem.query.join(CheckList).join(Trip).filter(
+      CheckListItem.id == id, Trip.user_id == get_jwt_identity()
+    ).first()
+
+    if not item:
+      return {'error': '404 Checklist item not found'}, 404
+
+    db.session.delete(item)
+    db.session.commit()
+
+    return {'200': 'Checklist item successfully deleted'}, 200
+
+class ItineraryItemIndex(Resource):
+
+  # get all itinerary items for a trip
+  @jwt_required()
+  def get(self, trip_id):
     user_id = get_jwt_identity()
 
-    # pagination
+    trip = Trip.query.filter( Trip.id == trip_id, Trip.user_id == user_id ).first()
+    if not trip:
+      return {'error': '404 Trip not found'}, 404
+
     page = request.args.get('page', 1, type=int)
     per_page = request.args.get('per_page', 10, type=int)
 
-    # dynamic pagination
-    pagination = ItineraryList.query.join(Trip).filter(
-    Trip.user_id == user_id
+    pagination = ItineraryItem.query.filter(
+      ItineraryItem.trip_id == trip_id
     ).paginate(page=page, per_page=per_page, error_out=False)
 
-    itin = pagination.items
+    items = pagination.items
 
     return {
-      'trips': ItineraryListSchema(many=True).dump(itin),
+      'itinerary_items': ItineraryItemSchema(many=True).dump(items),
       'total_pages': pagination.pages,
       'current_page': page,
       'has_next': pagination.has_next,
       'has_prev': pagination.has_prev
       }, 200
-  
-  # add a new itin list
+
+  # add a new itinerary item to a trip
   @jwt_required()
   def post(self, trip_id):
+    trip = Trip.query.filter( Trip.id == trip_id, Trip.user_id == get_jwt_identity() ).first()
+    if not trip:
+      return {'error': '404 Trip not found'}, 404
+
     request_json = request.get_json()
 
-    itin = ItineraryList(
-      title=request_json.get('title'),
+    item = ItineraryItem(
+      activity=request_json.get('activity'),
+      start_time=request_json.get('start_time'),
+      end_time=request_json.get('end_time'),
+      day=request_json.get('day'),
       trip_id=trip_id
     )
 
     try:
-      db.session.add(itin)
+      db.session.add(item)
       db.session.commit()
-      return ItineraryListSchema().dump(itin), 201
+      return ItineraryItemSchema().dump(item), 201
     except IntegrityError:
       return {'errors': ['422 Unprocessable Entity']}, 422
 
-class ItineraryListById(Resource):
+class ItineraryItemById(Resource):
   # get by id
+  # ItineraryItem has no user_id of its own, so ownership is checked by joining through Trip
   @jwt_required()
   def get(self, id):
-    itin_list = ItineraryList.query.filter( ItineraryList.id == id, ItineraryList.user_id == get_jwt_identity() ).first()
+    item = ItineraryItem.query.join(Trip).filter(
+      ItineraryItem.id == id, Trip.user_id == get_jwt_identity()
+    ).first()
 
-    if not itin_list:
-      return { 'errors': '404 Itinerary Item not found' }, 404
-    
-    return ItineraryListSchema().dump(itin_list), 200
+    if not item:
+      return { 'errors': '404 Itinerary item not found' }, 404
 
-  # edit an itinerary list
+    return ItineraryItemSchema().dump(item), 200
+
+  # edit an itinerary item
   @jwt_required()
   def patch(self, id):
-    itin_list = ItineraryList.query.filter( ItineraryList.id == id, ItineraryList.user_id == get_jwt_identity() ).first()
+    item = ItineraryItem.query.join(Trip).filter(
+      ItineraryItem.id == id, Trip.user_id == get_jwt_identity()
+    ).first()
 
-    if not itin_list:
-      return { 'errors': '404 Itinerary Item not found' }, 404
-    
+    if not item:
+      return { 'errors': '404 Itinerary item not found' }, 404
+
     request_json = request.get_json()
 
-    if 'title' in request_json:
-      itin_list.title = request_json['title']
+    if 'activity' in request_json:
+      item.activity = request_json['activity']
+    if 'start_time' in request_json:
+      item.start_time = request_json['start_time']
+    if 'end_time' in request_json:
+      item.end_time = request_json['end_time']
+    if 'day' in request_json:
+      item.day = request_json['day']
 
     db.session.commit()
 
-    return ItineraryListSchema().dump(itin_list), 200
+    return ItineraryItemSchema().dump(item), 200
 
-  # delete a trip
+  # delete an itinerary item
   @jwt_required()
   def delete(self, id):
-    itin_list = ItineraryList.query.filter( ItineraryList.id == id, ItineraryList.user_id == get_jwt_identity() ).first()
+    item = ItineraryItem.query.join(Trip).filter(
+      ItineraryItem.id == id, Trip.user_id == get_jwt_identity()
+    ).first()
 
-    if not itin_list:
-      return { 'errors': '404 Itinerary Item not found' }, 404
-    
-    db.session.delete(itin_list)
+    if not item:
+      return { 'errors': '404 Itinerary item not found' }, 404
+
+    db.session.delete(item)
     db.session.commit()
 
-    return {'200': 'Itinerary List successfully deleted'}, 200
+    return {'200': 'Itinerary item successfully deleted'}, 200
+
+# --- routes ---
+# checklists and itinerary items are nested under a trip since they can't exist without one
+
+api.add_resource(Signup, '/signup')
+api.add_resource(WhoAmI, '/whoami')
+api.add_resource(Login, '/login')
+
+api.add_resource(TripIndex, '/trips')
+api.add_resource(TripById, '/trips/<int:id>')
+
+api.add_resource(CheckListIndex, '/trips/<int:trip_id>/checklists')
+api.add_resource(CheckListById, '/checklists/<int:id>')
+api.add_resource(CheckListItemIndex, '/checklists/<int:checklist_id>/items')
+api.add_resource(CheckListItemById, '/checklist-items/<int:id>')
+
+api.add_resource(ItineraryItemIndex, '/trips/<int:trip_id>/itinerary-items')
+api.add_resource(ItineraryItemById, '/itinerary-items/<int:id>')
