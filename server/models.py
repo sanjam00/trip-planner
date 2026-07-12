@@ -60,7 +60,7 @@ class Trip(db.Model):
 
   user = db.relationship('User', back_populates='trips')
   checklists = db.relationship('CheckList', back_populates='trip', cascade='all, delete-orphan')
-  itinerarylist = db.relationship('ItineraryList', back_populates='trips', cascade='all, delete-orphan')
+  itinerarylist = db.relationship('ItineraryList', back_populates='trip', cascade='all, delete-orphan')
   
   def __repr__(self):
     return f'<Trip Trip {self.id}: {self.title}. Description: "{self.description}". Destination: {self.destination}. From {self.start_date} to {self.end_date}>'
@@ -101,7 +101,7 @@ class ItineraryList(db.Model):
 
   trip_id = db.Column(db.Integer(), db.ForeignKey('trips.id'), nullable=False)
 
-  trip = db.relationship('Trip', back_populates='itineraries')
+  trip = db.relationship('Trip', back_populates='itinerarylist')
   items = db.relationship('ItineraryItem', back_populates='itinerarylist', cascade='all, delete-orphan')
 
   def __repr__(self):
