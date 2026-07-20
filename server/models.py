@@ -95,7 +95,7 @@ class CheckListItem(db.Model):
 
 # no more separate ItineraryList — items attach straight to a trip
 class ItineraryItem(db.Model):
-  __tablename__ = "itineraries"
+  __tablename__ = "itinerary_items"
 
   id = db.Column(db.Integer, primary_key=True)
   activity = db.Column(db.String, nullable=False)

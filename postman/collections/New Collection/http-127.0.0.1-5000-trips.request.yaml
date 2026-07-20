@@ -1,0 +1,10 @@
+$kind: http-request
+name: http://127.0.0.1:5000/trips
+description: ""
+url: http://127.0.0.1:5000/trips
+method: GET
+auth:
+  type: bearer
+  credentials:
+    token: "{{access_token}}"
+order: 2293028305865468

@@ -1,0 +1,19 @@
+$kind: http-request
+name: http://127.0.0.1:5000/login
+description: ""
+url: http://127.0.0.1:5000/login
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \    \"username\": \"sanjam\",\r
+
+    \    \"password\": \"strongpass123456\"\r
+
+    }"
+scripts:
+  - type: afterResponse
+    code: ""
+    language: text/javascript
+order: 1783979853680
