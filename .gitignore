@@ -1,5 +1,1 @@
 .env
-
-# ignoring until ready to restructure my files
-models/
-controllers/
