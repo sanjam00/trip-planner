@@ -2,6 +2,7 @@ from flask import make_response, jsonify, request
 from flask_restful import Resource # using resource allows for compartmentalization, grouping routes together
 from sqlalchemy.exc import IntegrityError
 from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required
+from flask_jwt_extended.exceptions import JWTExtendedException
 
 from config import app, db, jwt, api
 from models import (
@@ -19,8 +20,11 @@ from models.schemas import (
   ItineraryItemSchema,
 )
 
-from config import app, api
+@app.errorhandler(JWTExtendedException)
+def handle_jwt_errors(error):
+  return {'errors': [str(error)]}, 401
 
+  
 from controllers.SignUp import Signup
 from controllers.WhoAmI import WhoAmI
 from controllers.Login import Login

@@ -12,7 +12,7 @@ class CheckListById(Resource):
   @jwt_required()
   def get(self, id):
     checklist = CheckList.query.join(Trip).filter(
-      CheckList.id == id, Trip.user_id == get_jwt_identity()
+      CheckList.id == id, Trip.user_id == int(get_jwt_identity())
     ).first()
 
     if not checklist:
@@ -24,7 +24,7 @@ class CheckListById(Resource):
   @jwt_required()
   def patch(self, id):
     checklist = CheckList.query.join(Trip).filter(
-      CheckList.id == id, Trip.user_id == get_jwt_identity()
+      CheckList.id == id, Trip.user_id == int(get_jwt_identity())
     ).first()
 
     if not checklist:
@@ -43,7 +43,7 @@ class CheckListById(Resource):
   @jwt_required()
   def delete(self, id):
     checklist = CheckList.query.join(Trip).filter(
-      CheckList.id == id, Trip.user_id == get_jwt_identity()
+      CheckList.id == id, Trip.user_id == int(get_jwt_identity())
     ).first()
 
     if not checklist:

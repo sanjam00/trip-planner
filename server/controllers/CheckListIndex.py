@@ -13,7 +13,7 @@ class CheckListIndex(Resource):
   # registered at /trips/<int:trip_id>/checklists, so trip_id always comes from the route
   @jwt_required()
   def get(self, trip_id):
-    user_id = get_jwt_identity()
+    user_id = int(get_jwt_identity())
 
     # confirms the trip belongs to this user before showing its checklists
     trip = Trip.query.filter( Trip.id == trip_id, Trip.user_id == user_id ).first()
@@ -41,7 +41,7 @@ class CheckListIndex(Resource):
   @jwt_required()
   def post(self, trip_id):
     # confirms the trip belongs to this user before adding to it
-    trip = Trip.query.filter( Trip.id == trip_id, Trip.user_id == get_jwt_identity() ).first()
+    trip = Trip.query.filter( Trip.id == trip_id, Trip.user_id == int(get_jwt_identity()) ).first()
     if not trip:
       return {'error': '404 Trip not found'}, 404
 

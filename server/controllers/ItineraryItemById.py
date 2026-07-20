@@ -12,7 +12,7 @@ class ItineraryItemById(Resource):
   @jwt_required()
   def get(self, id):
     item = ItineraryItem.query.join(Trip).filter(
-      ItineraryItem.id == id, Trip.user_id == get_jwt_identity()
+      ItineraryItem.id == id, Trip.user_id == int(get_jwt_identity())
     ).first()
 
     if not item:
@@ -24,7 +24,7 @@ class ItineraryItemById(Resource):
   @jwt_required()
   def patch(self, id):
     item = ItineraryItem.query.join(Trip).filter(
-      ItineraryItem.id == id, Trip.user_id == get_jwt_identity()
+      ItineraryItem.id == id, Trip.user_id == int(get_jwt_identity())
     ).first()
 
     if not item:
@@ -49,7 +49,7 @@ class ItineraryItemById(Resource):
   @jwt_required()
   def delete(self, id):
     item = ItineraryItem.query.join(Trip).filter(
-      ItineraryItem.id == id, Trip.user_id == get_jwt_identity()
+      ItineraryItem.id == id, Trip.user_id == int(get_jwt_identity())
     ).first()
 
     if not item:

@@ -1,4 +1,4 @@
-from flask import request
+from flask import request, make_response, jsonify
 from flask_restful import Resource
 from flask_jwt_extended import create_access_token
 
@@ -17,7 +17,7 @@ class Login(Resource):
 
     # authenticate user by comparing passwords of the queried user
     if user and user.authenticate(password):
-      access_token = create_access_token(identity=user.id)
+      access_token = create_access_token(identity=str(user.id))
       return make_response(jsonify(token=access_token, user=UserSchema().dump(user)), 200)
 
     return {'errors': ['401 Unauthorized']}, 401

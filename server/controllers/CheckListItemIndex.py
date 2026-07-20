@@ -14,7 +14,7 @@ class CheckListItemIndex(Resource):
   def post(self, checklist_id):
     # confirms the checklist belongs (via trip) to this user before adding to it
     checklist = CheckList.query.join(Trip).filter(
-      CheckList.id == checklist_id, Trip.user_id == get_jwt_identity()
+      CheckList.id == checklist_id, Trip.user_id == int(get_jwt_identity())
     ).first()
     if not checklist:
       return {'error': '404 Checklist not found'}, 404

@@ -12,7 +12,7 @@ class ItineraryItemIndex(Resource):
   # get all itinerary items for a trip
   @jwt_required()
   def get(self, trip_id):
-    user_id = get_jwt_identity()
+    user_id = int(get_jwt_identity())
 
     trip = Trip.query.filter( Trip.id == trip_id, Trip.user_id == user_id ).first()
     if not trip:
@@ -38,7 +38,7 @@ class ItineraryItemIndex(Resource):
   # add a new itinerary item to a trip
   @jwt_required()
   def post(self, trip_id):
-    trip = Trip.query.filter( Trip.id == trip_id, Trip.user_id == get_jwt_identity() ).first()
+    trip = Trip.query.filter( Trip.id == trip_id, Trip.user_id == int(get_jwt_identity()) ).first()
     if not trip:
       return {'error': '404 Trip not found'}, 404
 

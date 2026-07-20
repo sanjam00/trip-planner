@@ -11,7 +11,7 @@ class TripById(Resource):
   # get by id
   @jwt_required()
   def get(self, id):
-    trip = Trip.query.filter( Trip.id == id, Trip.user_id == get_jwt_identity() ).first()
+    trip = Trip.query.filter( Trip.id == id, Trip.user_id == int(get_jwt_identity()) ).first()
 
     if not trip:
       return { 'errors': '404 Trip not found' }, 404
@@ -21,7 +21,7 @@ class TripById(Resource):
   # edit a trip
   @jwt_required()
   def patch(self, id):
-    trip = Trip.query.filter( Trip.id == id, Trip.user_id == get_jwt_identity() ).first()
+    trip = Trip.query.filter( Trip.id == id, Trip.user_id == int(get_jwt_identity()) ).first()
 
     if not trip:
       return {'error': '404 Trip not found'}, 404
@@ -48,7 +48,7 @@ class TripById(Resource):
   # delete a trip
   @jwt_required()
   def delete(self, id):
-    trip = Trip.query.filter(Trip.id == id, Trip.user_id == get_jwt_identity() ).first()
+    trip = Trip.query.filter(Trip.id == id, Trip.user_id == int(get_jwt_identity()) ).first()
 
     if not trip:
       return {'error': '404 Trip not found'}, 404

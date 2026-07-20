@@ -12,7 +12,7 @@ class CheckListItemById(Resource):
   @jwt_required()
   def patch(self, id):
     item = CheckListItem.query.join(CheckList).join(Trip).filter(
-      CheckListItem.id == id, Trip.user_id == get_jwt_identity()
+      CheckListItem.id == id, Trip.user_id == int(get_jwt_identity())
     ).first()
 
     if not item:
@@ -33,7 +33,7 @@ class CheckListItemById(Resource):
   @jwt_required()
   def delete(self, id):
     item = CheckListItem.query.join(CheckList).join(Trip).filter(
-      CheckListItem.id == id, Trip.user_id == get_jwt_identity()
+      CheckListItem.id == id, Trip.user_id == int(get_jwt_identity())
     ).first()
 
     if not item:
