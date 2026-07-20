@@ -4,3 +4,8 @@ Flask-Marshmallow
 marshmallow
 Flask-Bcrypt
 Faker
+Flask-RESTful
+flask-migrate
+flask-jwt-extended
+flask-cors
+python-dotenv
