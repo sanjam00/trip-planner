@@ -1,0 +1,17 @@
+$kind: http-request
+name: http://127.0.0.1:5000/trips/25/checklists/35
+description: ""
+url: http://127.0.0.1:5000/trips/25/checklists/35
+method: PATCH
+body:
+  type: json
+  content: "{\r
+
+    \    \"title\": \"new title for clothes list\"\r
+
+    }"
+auth:
+  type: bearer
+  credentials:
+    token: "{{json_web_token_0pav}}"
+order: 4503579441112830

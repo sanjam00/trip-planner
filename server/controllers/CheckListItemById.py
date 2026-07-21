@@ -10,9 +10,12 @@ class CheckListItemById(Resource):
 
   # edit an item (e.g. flip status to packed)
   @jwt_required()
-  def patch(self, id):
+  def patch(self, trip_id, checklist_id, id):
     item = CheckListItem.query.join(CheckList).join(Trip).filter(
-      CheckListItem.id == id, Trip.user_id == int(get_jwt_identity())
+      CheckListItem.id == id,
+      CheckListItem.checklist_id == checklist_id,
+      Trip.id == trip_id,
+      Trip.user_id == int(get_jwt_identity())
     ).first()
 
     if not item:
@@ -31,9 +34,12 @@ class CheckListItemById(Resource):
 
   # delete an item
   @jwt_required()
-  def delete(self, id):
+  def delete(self, trip_id, checklist_id, id):
     item = CheckListItem.query.join(CheckList).join(Trip).filter(
-      CheckListItem.id == id, Trip.user_id == int(get_jwt_identity())
+      CheckListItem.id == id,
+      CheckListItem.checklist_id == checklist_id,
+      Trip.id == trip_id,
+      Trip.user_id == int(get_jwt_identity())
     ).first()
 
     if not item:

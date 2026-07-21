@@ -1,2 +1,16 @@
 $kind: collection
 name: New Collection
+description: ""
+variables:
+  - key: json_web_token_130g
+    secret: true
+  - key: json_web_token_0om1
+    secret: true
+  - key: json_web_token_096y
+    secret: true
+  - key: json_web_token_0pav
+    secret: true
+  - key: json_web_token_0mcj
+    secret: true
+  - key: json_web_token_0wrc
+    secret: true

@@ -11,10 +11,10 @@ class CheckListItemIndex(Resource):
 
   # add a new item to a checklist
   @jwt_required()
-  def post(self, checklist_id):
+  def post(self, trip_id, checklist_id):
     # confirms the checklist belongs (via trip) to this user before adding to it
     checklist = CheckList.query.join(Trip).filter(
-      CheckList.id == checklist_id, Trip.user_id == int(get_jwt_identity())
+      CheckList.id == checklist_id, CheckList.trip_id == trip_id, Trip.user_id == int(get_jwt_identity())
     ).first()
     if not checklist:
       return {'error': '404 Checklist not found'}, 404

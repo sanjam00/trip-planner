@@ -10,9 +10,9 @@ class CheckListById(Resource):
   # get by id
   # CheckList has no user_id of its own, so ownership is checked by joining through Trip
   @jwt_required()
-  def get(self, id):
+  def get(self, trip_id, id):
     checklist = CheckList.query.join(Trip).filter(
-      CheckList.id == id, Trip.user_id == int(get_jwt_identity())
+      CheckList.id == id, CheckList.trip_id == trip_id, Trip.user_id == int(get_jwt_identity())
     ).first()
 
     if not checklist:
@@ -22,9 +22,9 @@ class CheckListById(Resource):
 
   # edit a list
   @jwt_required()
-  def patch(self, id):
+  def patch(self, trip_id, id):
     checklist = CheckList.query.join(Trip).filter(
-      CheckList.id == id, Trip.user_id == int(get_jwt_identity())
+      CheckList.id == id, CheckList.trip_id == trip_id, Trip.user_id == int(get_jwt_identity())
     ).first()
 
     if not checklist:
@@ -41,9 +41,9 @@ class CheckListById(Resource):
 
   # delete a checklist
   @jwt_required()
-  def delete(self, id):
+  def delete(self, trip_id, id):
     checklist = CheckList.query.join(Trip).filter(
-      CheckList.id == id, Trip.user_id == int(get_jwt_identity())
+      CheckList.id == id, CheckList.trip_id == trip_id, Trip.user_id == int(get_jwt_identity())
     ).first()
 
     if not checklist:

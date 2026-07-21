@@ -6,6 +6,7 @@ from config import db, bcrypt
 
 # --- enum values ---
 class Status(Enum):
+  # when testing in postman, submit status as the listed key, not value. "PACKED", not "packed"
   PACKED = 'packed'
   NOT_PACKED = 'not packed'
   PLANNED = 'planned'
@@ -15,7 +16,7 @@ class CheckListItem(db.Model):
 
   id = db.Column(db.Integer, primary_key=True)
   item_name = db.Column(db.String, nullable=False)
-  status = db.Column(db.Enum(Status), default=Status.NOT_PACKED, nullable=False)
+  status = db.Column(db.Enum(Status), default=Status.NOT_PACKED)
 
   checklist_id = db.Column(db.Integer(), db.ForeignKey('checklists.id'), nullable=False)
 

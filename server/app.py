@@ -20,11 +20,6 @@ from models.schemas import (
   ItineraryItemSchema,
 )
 
-@app.errorhandler(JWTExtendedException)
-def handle_jwt_errors(error):
-  return {'errors': [str(error)]}, 401
-
-  
 from controllers.SignUp import Signup
 from controllers.WhoAmI import WhoAmI
 from controllers.Login import Login
@@ -48,9 +43,9 @@ api.add_resource(TripIndex, '/trips')
 api.add_resource(TripById, '/trips/<int:id>')
 
 api.add_resource(CheckListIndex, '/trips/<int:trip_id>/checklists')
-api.add_resource(CheckListById, '/checklists/<int:id>')
-api.add_resource(CheckListItemIndex, '/checklists/<int:checklist_id>/items')
-api.add_resource(CheckListItemById, '/checklist-items/<int:id>')
+api.add_resource(CheckListById, '/trips/<int:trip_id>/checklists/<int:id>')
+api.add_resource(CheckListItemIndex, '/trips/<int:trip_id>/checklists/<int:checklist_id>/checklist-items')
+api.add_resource(CheckListItemById, '/trips/<int:trip_id>/checklists/<int:checklist_id>/checklist-items/<int:id>')
 
 api.add_resource(ItineraryItemIndex, '/trips/<int:trip_id>/itinerary-items')
-api.add_resource(ItineraryItemById, '/itinerary-items/<int:id>')
+api.add_resource(ItineraryItemById, '/trips/<int:trip_id>/itinerary-items/<int:id>')

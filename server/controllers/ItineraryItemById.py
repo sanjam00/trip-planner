@@ -10,9 +10,9 @@ class ItineraryItemById(Resource):
   # get by id
   # ItineraryItem has no user_id of its own, so ownership is checked by joining through Trip
   @jwt_required()
-  def get(self, id):
+  def get(self, trip_id, id):
     item = ItineraryItem.query.join(Trip).filter(
-      ItineraryItem.id == id, Trip.user_id == int(get_jwt_identity())
+      ItineraryItem.id == id, ItineraryItem.trip_id == trip_id, Trip.user_id == int(get_jwt_identity())
     ).first()
 
     if not item:
@@ -22,9 +22,9 @@ class ItineraryItemById(Resource):
 
   # edit an itinerary item
   @jwt_required()
-  def patch(self, id):
+  def patch(self, trip_id, id):
     item = ItineraryItem.query.join(Trip).filter(
-      ItineraryItem.id == id, Trip.user_id == int(get_jwt_identity())
+      ItineraryItem.id == id, ItineraryItem.trip_id == trip_id, Trip.user_id == int(get_jwt_identity())
     ).first()
 
     if not item:
@@ -47,9 +47,9 @@ class ItineraryItemById(Resource):
 
   # delete an itinerary item
   @jwt_required()
-  def delete(self, id):
+  def delete(self, trip_id, id):
     item = ItineraryItem.query.join(Trip).filter(
-      ItineraryItem.id == id, Trip.user_id == int(get_jwt_identity())
+      ItineraryItem.id == id, ItineraryItem.trip_id == trip_id, Trip.user_id == int(get_jwt_identity())
     ).first()
 
     if not item:
