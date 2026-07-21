@@ -29,6 +29,7 @@ class TripById(Resource):
 
     request_json = request.get_json()
 
+    # only parse fields that were sent
     try:
       if 'start_date' in request_json:
         trip.start_date = datetime.strptime(request_json['start_date'], '%Y-%m-%d').date()
