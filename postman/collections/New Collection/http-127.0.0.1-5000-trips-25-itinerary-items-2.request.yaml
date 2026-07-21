@@ -1,0 +1,23 @@
+$kind: http-request
+name: http://127.0.0.1:5000/trips/25/itinerary-items
+description: ""
+url: http://127.0.0.1:5000/trips/25/itinerary-items
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \    \"activity\": \"Time Square\",\r
+
+    \    \"start_time\": \"22:00:00\",\r
+
+    \    \"end_time\": \"00:30:00\",\r
+
+    \    \"day\": \"2027-08-10\"\r
+
+    }"
+auth:
+  type: bearer
+  credentials:
+    token: "{{json_web_token_0c17}}"
+order: 4503599478666961

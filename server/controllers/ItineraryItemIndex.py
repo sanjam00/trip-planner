@@ -2,6 +2,7 @@ from flask import request
 from flask_restful import Resource
 from sqlalchemy.exc import IntegrityError
 from flask_jwt_extended import get_jwt_identity, jwt_required
+from datetime import datetime
 
 from config import db
 from models import Trip, ItineraryItem
@@ -44,11 +45,18 @@ class ItineraryItemIndex(Resource):
 
     request_json = request.get_json()
 
+    try:
+      start_time = datetime.strptime(request_json.get('start_time'), '%H:%M:%S').time()
+      end_time = datetime.strptime(request_json.get('end_time'), '%H:%M:%S').time()
+      day = datetime.strptime(request_json.get('day'), '%Y-%m-%d').date()
+    except (ValueError, TypeError):
+      return {'errors': ['Invalid date format, expected YYYY-MM-DD']}, 422
+
     item = ItineraryItem(
       activity=request_json.get('activity'),
-      start_time=request_json.get('start_time'),
-      end_time=request_json.get('end_time'),
-      day=request_json.get('day'),
+      start_time=start_time,
+      end_time=end_time,
+      day=day,
       trip_id=trip_id
     )
 

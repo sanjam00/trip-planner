@@ -14,3 +14,7 @@ variables:
     secret: true
   - key: json_web_token_0wrc
     secret: true
+  - key: json_web_token_0c17
+    secret: true
+  - key: json_web_token_0fp9
+    secret: true

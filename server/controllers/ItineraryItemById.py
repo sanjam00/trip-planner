@@ -1,6 +1,7 @@
 from flask import request
 from flask_restful import Resource
 from flask_jwt_extended import get_jwt_identity, jwt_required
+from datetime import datetime
 
 from config import db
 from models import Trip, ItineraryItem
@@ -32,14 +33,19 @@ class ItineraryItemById(Resource):
 
     request_json = request.get_json()
 
+    # only parse fields that were sent
+    try:
+      if 'start_time' in request_json:
+        item.start_time = datetime.strptime(request_json['start_time'], '%H:%M:%S').time()
+      if 'end_time' in request_json:
+        item.end_time = datetime.strptime(request_json['end_time'], '%H:%M:%S').time()
+      if 'day' in request_json:
+        item.day = datetime.strptime(request_json['day'], '%Y-%m-%d').date()
+    except (ValueError, TypeError):
+      return {'errors': ['Invalid time/date format, expected HH:MM:SS and YYYY-MM-DD']}, 422
+
     if 'activity' in request_json:
       item.activity = request_json['activity']
-    if 'start_time' in request_json:
-      item.start_time = request_json['start_time']
-    if 'end_time' in request_json:
-      item.end_time = request_json['end_time']
-    if 'day' in request_json:
-      item.day = request_json['day']
 
     db.session.commit()
 

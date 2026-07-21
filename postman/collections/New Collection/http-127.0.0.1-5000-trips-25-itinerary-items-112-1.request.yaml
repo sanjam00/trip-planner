@@ -1,0 +1,17 @@
+$kind: http-request
+name: http://127.0.0.1:5000/trips/25/itinerary-items/112
+description: ""
+url: http://127.0.0.1:5000/trips/25/itinerary-items/112
+method: PATCH
+body:
+  type: json
+  content: "{\r
+
+    \    \"activity\": \"Met Museum!\"\r
+
+    }"
+auth:
+  type: bearer
+  credentials:
+    token: "{{json_web_token_0fp9}}"
+order: 4503599578927799

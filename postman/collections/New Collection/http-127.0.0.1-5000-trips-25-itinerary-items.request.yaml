@@ -1,0 +1,23 @@
+$kind: http-request
+name: http://127.0.0.1:5000/trips/25/itinerary-items
+description: ""
+url: http://127.0.0.1:5000/trips/25/itinerary-items
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \    \"activity\": \"MET museum\",\r
+
+    \    \"start_time\": \"\",\r
+
+    \    \"end_time\": \"\",\r
+
+    \    \"day\": \"day 1\"\r
+
+    }"
+auth:
+  type: bearer
+  credentials:
+    token: "{{json_web_token_0wrc}}"
+order: 4503596253782113
