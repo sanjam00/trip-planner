@@ -1,24 +1,5 @@
-from flask import make_response, jsonify, request
-from flask_restful import Resource # using resource allows for compartmentalization, grouping routes together
-from sqlalchemy.exc import IntegrityError
-from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required
-from flask_jwt_extended.exceptions import JWTExtendedException
 
-from config import app, db, jwt, api
-from models import (
-  User,
-  Trip,
-  CheckList,
-  CheckListItem,
-  ItineraryItem,
-)
-from models.schemas import (
-  UserSchema,
-  TripSchema,
-  CheckListSchema,
-  CheckListItemSchema,
-  ItineraryItemSchema,
-)
+from config import api
 
 from controllers.SignUp import Signup
 from controllers.WhoAmI import WhoAmI
