@@ -1,7 +1,7 @@
 
 // fetch wrapper with auth header
 
-const BASE_URL = ''
+const BASE_URL = 'http://localhost:5173/'
 
 export async function apiFetch(endpoint, token, options = {}) {
   const response = await fetch(`${BASE_URL}${endpoint}`, {

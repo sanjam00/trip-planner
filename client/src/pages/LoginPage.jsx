@@ -1,7 +1,7 @@
 import { useState } from "react"
-import { useNavigate, Link } from 'react-router-dom'
-import { userAuth } from "../context/AuthContext";
-
+import { useNavigate, Link } from 'react-router'
+import { useAuth } from "../context/AuthContext";
+import "../styles/LoginPage.css"
 
 export default function LoginPage(){
   const [username, setUsername] = useState('');
@@ -10,7 +10,7 @@ export default function LoginPage(){
   const [loading, setLoading] = useState(false);
 
   // define and import the login function from AuthContext
-  const { login } = userAuth();
+  const { login } = useAuth();
   const navigate = useNavigate();
 
   async function handleSubmit(e) {
@@ -32,7 +32,7 @@ export default function LoginPage(){
     <div>
       <h1>Log In</h1>
 
-      {err && <p style={{color: 'red'}}>{error}</p>}
+      {error && <p style={{color: 'red'}}>{error}</p>}
 
       <form onSubmit={handleSubmit}>
         <div>
