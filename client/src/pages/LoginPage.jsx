@@ -29,7 +29,7 @@ export default function LoginPage(){
   }
 
   return (
-    <div>
+    <div id="loginPage">
       <h1>Log In</h1>
 
       {error && <p style={{color: 'red'}}>{error}</p>}
