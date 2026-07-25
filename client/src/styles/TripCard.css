@@ -1,0 +1,45 @@
+:root {
+  --olive: #606C38;
+  --cream: #FFF7E0;
+  --gold: #BB9457;
+  --dark: #42582a;
+  --rust: #773004;
+}
+
+.trip-card {
+  background: var(--cream);
+  border: 1px solid rgba(96, 108, 56, 0.2);
+  border-radius: 14px;
+  padding: 0.9rem 1rem;
+  box-shadow: 0 8px 20px rgba(40, 54, 25, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  min-height: 120px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.trip-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 30px rgba(40, 54, 25, 0.12);
+}
+
+.trip-card h2 {
+  margin: 0;
+  color: var(--olive);
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.trip-meta {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.trip-date {
+  margin: 0;
+  color: var(--rust);
+  font-weight: 600;
+}
