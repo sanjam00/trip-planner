@@ -23,6 +23,7 @@ export default function LoginPage(){
       navigate('/trips')
     } catch(err) {
       setError(err.message);
+      console.log(err)
     } finally {
       setLoading(false);
     }

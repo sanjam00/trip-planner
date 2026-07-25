@@ -1,5 +1,5 @@
 
-from config import api
+from config import app, api
 
 from controllers.SignUp import Signup
 from controllers.WhoAmI import WhoAmI
@@ -30,3 +30,6 @@ api.add_resource(CheckListItemById, '/trips/<int:trip_id>/checklists/<int:checkl
 
 api.add_resource(ItineraryItemIndex, '/trips/<int:trip_id>/itinerary-items')
 api.add_resource(ItineraryItemById, '/trips/<int:trip_id>/itinerary-items/<int:id>')
+
+if __name__ == '__main__':
+  app.run(port=5555, debug=True)

@@ -6,19 +6,19 @@
   --rust: #773004;
 }
 
-#loginPage {
+#signupPage {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 2rem;
-  /* background: linear-gradient(135deg, var(--cream) 0%, #ffffff 100%); */
   color: var(--dark);
   font-family: Inter, Arial, sans-serif;
+  /* background: linear-gradient(135deg, var(--cream) 0%, #ffffff 100%); */
 }
 
-#loginPage h1 {
+#signupPage h1 {
   margin-bottom: 1.25rem;
   color: var(--olive);
   font-size: 2rem;
@@ -27,28 +27,29 @@
   border: none;
 }
 
-#loginPage form {
+#signupPage form {
   width: min(100%, 360px);
   padding: 2rem;
   background: #ffffff;
   border: 1px solid #eee7d7;
   border-radius: 5px;
-  box-shadow: 0 12px 30px rgba(40, 54, 25, 0.08);}
+  box-shadow: 0 12px 30px rgba(40, 54, 25, 0.08);
+}
 
-#loginPage form > div {
+#signupPage form > div {
   display: flex;
   flex-direction: column;
   margin-bottom: 1rem;
 }
 
-#loginPage label {
+#signupPage label {
   margin-bottom: 0.45rem;
   font-size: 0.95rem;
   font-weight: 600;
   color: var(--dark);
 }
 
-#loginPage input {
+#signupPage input {
   padding: 0.8rem 0.95rem;
   border: 1px solid #d8d1c2;
   border-radius: 2px;
@@ -58,12 +59,12 @@
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-#loginPage input:focus {
+#signupPage input:focus {
   border-color: var(--olive);
   box-shadow: 0 0 0 3px rgba(96, 108, 56, 0.15);
 }
 
-#loginPage button {
+#signupPage button {
   width: 100%;
   margin-top: 0.5rem;
   padding: 0.9rem 1rem;
@@ -76,36 +77,36 @@
   transition: background 0.2s ease, transform 0.2s ease;
 }
 
-#loginPage button:hover {
+#signupPage button:hover {
   background: var(--dark);
   transform: translateY(-1px);
 }
 
-#loginPage p {
+#signupPage p {
   margin-top: 1rem;
   color: var(--dark);
 }
 
-#loginPage a {
+#signupPage a {
   color: var(--rust);
   font-weight: 600;
   text-decoration: none;
 }
 
-#loginPage a:hover {
+#signupPage a:hover {
   text-decoration: underline;
 }
 
 @media only screen and (max-width: 600px) {
-  #loginPage {
+  #signupPage {
     padding: 1.25rem;
   }
 
-  #loginPage h1 {
+  #signupPage h1 {
     font-size: 1.75rem;
   }
 
-  #loginPage form {
+  #signupPage form {
     padding: 1.5rem;
   }
 }
