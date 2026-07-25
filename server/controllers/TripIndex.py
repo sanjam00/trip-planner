@@ -47,7 +47,7 @@ class TripIndex(Resource):
       start_date = datetime.strptime(request_json.get('start_date'), '%Y-%m-%d').date()
       end_date = datetime.strptime(request_json.get('end_date'), '%Y-%m-%d').date()
     except (ValueError, TypeError):
-      return {'errors': ['Invalid date format, expected YYYY/MM/DD']}, 422
+      return {'errors': ['Invalid date format, expected YYYY-MM-DD']}, 422
 
     trip = Trip(
       title=request_json.get('title'),

@@ -7,13 +7,13 @@ body:
   type: json
   content: "{\r
 
-    \    \"username\": \"sanjam\",\r
+    \    \"username\": \"jumping_joy\",\r
 
-    \    \"email\": \"sanjam@gmail.com\",\r
+    \    \"email\": \"joyjoy@gmail.com\",\r
 
-    \    \"password\": \"strongpass123456\",\r
+    \    \"password\": \"strongpassword123456\",\r
 
-    \    \"password_confirmation\": \"strongpass123456\"\r
+    \    \"password_confirmation\": \"strongpassword123456\"\r
 
     }"
 order: 2237255707552438
