@@ -6,6 +6,7 @@ import TripsPage from './pages/TripsPage'
 import ProtectedRoute from './components/ProtectedRoute'
 import NavBar from './components/Navbar'
 import TripForm from './pages/TripFormPage'
+import TripDetailsPage from './pages/TripDetailsPage'
 
 export default function App(){
 
@@ -28,6 +29,14 @@ export default function App(){
           element={
             <ProtectedRoute>
               <TripForm />
+            </ProtectedRoute>
+          }
+        />
+        < Route
+          path="/trips/:id"
+          element={
+            <ProtectedRoute>
+              <TripDetailsPage />
             </ProtectedRoute>
           }
         />

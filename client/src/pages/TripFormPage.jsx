@@ -4,20 +4,24 @@ import { useState } from "react";
 import { useAuth } from "../context/AuthContext"
 import { apiFetch } from "../api/api";
 import "../styles/TripForm.css"
+import { useNavigate } from "react-router";
+
+const initialFormData = {
+  title: '',
+  description: '',
+  destination: '',
+  start_date: '',
+  end_date: '',
+  notes: ''
+};
 
 export default function TripForm(){
   const [error, setError] = useState('');
+  const [successMsg, setSuccessMsg] = useState('');
   const [loading, setLoading] = useState(false);
-  const [formData, setFormData] = useState({
-    title: '',
-    description: '',
-    destination: '',
-    start_date: '', 
-    end_date: '',
-    notes: ''
-  })
+  const [formData, setFormData] = useState(initialFormData);
   const { token } = useAuth();
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   function handleChange(field) {
     return (e) => {
@@ -39,6 +43,7 @@ export default function TripForm(){
   async function handleSubmit(e) {
     e.preventDefault();
     setError('');
+    setSuccessMsg('');
     setLoading(true);
 
     try {
@@ -47,7 +52,9 @@ export default function TripForm(){
         body: JSON.stringify(formData),
       });
       console.log(newTrip);
-      // navigate(`/trips/${newTrip.id}`);
+      setFormData(initialFormData);
+      setSuccessMsg('Trip created successfully! Redirecting to trip details...');
+      navigate(`/trips/${newTrip.id}`);
     } catch (err) {
       setError(err.message);
     } finally {
@@ -60,6 +67,7 @@ export default function TripForm(){
       <h1>Create a new trip</h1>
 
       {error && <p style={{ color: 'red' }}>{error}</p>}
+      {successMsg && <p style={{ color: 'green' }}>{successMsg}</p>}
 
       <form onSubmit={handleSubmit}>
         <div>

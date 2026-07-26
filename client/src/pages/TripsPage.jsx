@@ -3,10 +3,13 @@ import { useAuth } from "../context/AuthContext"
 import { apiFetch } from "../api/api";
 import TripCard from "../components/trips/TripCard";
 import "../styles/TripsPage.css";
+import { useNavigate } from "react-router";
 
 export default function TripsPage(){
   const { token } = useAuth();
   const [trips, setTrips] = useState([]);
+
+  const navigate = useNavigate();
 
   // GET all trips, display trip card
   useEffect(() => {
@@ -17,6 +20,10 @@ export default function TripsPage(){
       })
       .catch(err => console.error(err));
   }, [token])
+
+  function tripDetailsNav(tripData){
+    navigate(`/trips/${tripData.id}`)
+  }
   
   return (
     <main className="trips-page">
@@ -24,7 +31,9 @@ export default function TripsPage(){
 
       <div className="trips-grid">
         {trips.map(trip => (
-          <TripCard key={trip.id} trip={trip}/>
+          <div onClick={() => tripDetailsNav(trip)}>
+            <TripCard key={trip.id} trip={trip}/>
+          </div>
         ))}
       </div>
     </main>

@@ -1,7 +1,7 @@
 //display a card on TripsPage (fetches all trips)
 import "../../styles/TripCard.css";
 
-export default function TripCard({ props, trip}){
+export default function TripCard({ trip }){
 
   return (
     <article className="trip-card">

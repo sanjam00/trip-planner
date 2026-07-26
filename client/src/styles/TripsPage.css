@@ -28,6 +28,7 @@
 @media only screen and (max-width: 600px) {
   .trips-page {
     padding: 1.25rem;
+    margin: 1.25rem;
   }
 
   .trips-page h1 {
