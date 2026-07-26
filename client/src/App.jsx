@@ -33,7 +33,7 @@ export default function App(){
           }
         />
         < Route
-          path="/trips/:id"
+          path="/trips/:trip_id"
           element={
             <ProtectedRoute>
               <TripDetailsPage />
