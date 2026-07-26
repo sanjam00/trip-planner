@@ -6,7 +6,7 @@
   --rust: #773004;
 }
 
-#signupPage {
+#tripFormPage {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -15,10 +15,9 @@
   padding: 2rem;
   color: var(--dark);
   font-family: Inter, Arial, sans-serif;
-  /* background: linear-gradient(135deg, var(--cream) 0%, #ffffff 100%); */
 }
 
-#signupPage h1 {
+#tripFormPage h1 {
   margin-bottom: 1.25rem;
   color: var(--olive);
   font-size: 2rem;
@@ -27,8 +26,8 @@
   border: none;
 }
 
-#signupPage form {
-  width: min(100%, 360px);
+#tripFormPage form {
+  width: min(100%, 560px);
   padding: 2rem;
   background: #ffffff;
   border: 1px solid #eee7d7;
@@ -36,20 +35,21 @@
   box-shadow: 0 12px 30px rgba(40, 54, 25, 0.08);
 }
 
-#signupPage form > div {
+#tripFormPage form > div {
   display: flex;
   flex-direction: column;
   margin-bottom: 1rem;
 }
 
-#signupPage label {
+#tripFormPage label {
   margin-bottom: 0.45rem;
   font-size: 0.95rem;
   font-weight: 600;
   color: var(--dark);
 }
 
-#signupPage input {
+#tripFormPage input,
+#tripFormPage textarea {
   padding: 0.8rem 0.95rem;
   border: 1px solid #d8d1c2;
   border-radius: 2px;
@@ -59,12 +59,18 @@
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-#signupPage input:focus {
+#tripFormPage textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+#tripFormPage input:focus,
+#tripFormPage textarea:focus {
   border-color: var(--olive);
   box-shadow: 0 0 0 3px rgba(96, 108, 56, 0.15);
 }
 
-#signupPage button {
+#tripFormPage button {
   width: 100%;
   margin-top: 0.5rem;
   padding: 0.9rem 1rem;
@@ -77,37 +83,22 @@
   transition: background 0.2s ease, transform 0.2s ease;
 }
 
-#signupPage button:hover {
+#tripFormPage button:hover {
   background: var(--dark);
   transform: translateY(-1px);
 }
 
-#signupPage p {
-  margin-top: 1rem;
-  color: var(--dark);
-}
-
-#signupPage a {
-  color: var(--rust);
-  font-weight: 600;
-  text-decoration: none;
-}
-
-#signupPage a:hover {
-  text-decoration: underline;
-}
-
 @media only screen and (max-width: 600px) {
-  #signupPage {
+  #tripFormPage {
     padding: 1.25rem;
     margin: 1.25rem;
   }
 
-  #signupPage h1 {
+  #tripFormPage h1 {
     font-size: 1.75rem;
   }
 
-  #signupPage form {
+  #tripFormPage form {
     padding: 1.5rem;
   }
 }

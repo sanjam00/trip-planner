@@ -4,11 +4,14 @@ import LoginPage from './pages/LoginPage'
 import SignupPage from './pages/SignupPage'
 import TripsPage from './pages/TripsPage'
 import ProtectedRoute from './components/ProtectedRoute'
+import NavBar from './components/Navbar'
+import TripForm from './pages/TripFormPage'
 
 export default function App(){
 
   return(
     <BrowserRouter>
+      <NavBar />
       <Routes>
         < Route path="/login" element={ <LoginPage /> } />
         < Route path="/signup" element={ <SignupPage /> } />
@@ -19,6 +22,14 @@ export default function App(){
               <TripsPage />
             </ProtectedRoute>
           } 
+        />
+        < Route
+          path="/trips/new"
+          element={
+            <ProtectedRoute>
+              <TripForm />
+            </ProtectedRoute>
+          }
         />
       </Routes>
     </BrowserRouter>

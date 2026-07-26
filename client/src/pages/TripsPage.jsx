@@ -11,11 +11,6 @@ export default function TripsPage(){
   // GET all trips, display trip card
   useEffect(() => {
     apiFetch('/trips', token)
-      // breaks when i add this part:
-      // .then(r => {
-      //   if (!r.ok) {throw new Error("Failed to fetch")};
-      //   return r.json();
-      // })
       .then(data => {
         setTrips(data.trips);
         console.log(data.trips);

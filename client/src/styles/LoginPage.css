@@ -99,6 +99,7 @@
 @media only screen and (max-width: 600px) {
   #loginPage {
     padding: 1.25rem;
+    margin: 1.25rem;
   }
 
   #loginPage h1 {
