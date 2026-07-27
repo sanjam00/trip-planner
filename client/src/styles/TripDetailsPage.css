@@ -1,0 +1,116 @@
+/* :root {
+  --olive: #606C38;
+  --cream: #fffaea;
+  --gold: #BB9457;
+  --dark: #42582a;
+  --rust: #773004;
+} */
+
+.trip-details-page {
+  min-height: 100vh;
+  padding: 2rem 1.5rem 3.5rem;
+  color: var(--olive);
+}
+
+.trip-details-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.1rem;
+  padding: 1.6rem 1.8rem;
+  margin-bottom: 1.3rem;
+  /* border: 1px solid rgba(75, 127, 125, 0.18); */
+  border-radius: 5px;
+  background: var(--cream);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 1px 2px rgba(33, 55, 49, 0.06);
+}
+
+.trip-details-title-group h1 {
+  margin: 0;
+  font-size: clamp(2rem, 3.5vw, 2.8rem);
+  line-height: 1.1;
+  color: var(--dark-olive);
+}
+
+/* .trip-details-eyebrow {
+  margin: 0 0 0.4rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--olive);
+} */
+
+.trip-details-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.trip-details-meta-item {
+  min-width: 220px;
+  padding: 0.85rem 1rem;
+  border-radius: 5px;
+  background: #f2f8de;
+  /* border: 1px solid rgba(75, 127, 125, 0.14); */
+}
+
+.trip-details-label {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--olive);
+}
+
+.trip-details-meta-item p,
+.trip-details-card p {
+  margin: 0;
+  line-height: 1.7;
+  color: var(--olive);
+}
+
+.trip-details-content {
+  display: grid;
+  gap: 1rem;
+}
+
+.trip-details-card {
+  padding: 1.35rem 1.5rem;
+  border-radius: 5px;
+  background: var(--cream);
+  /* border: 1px solid rgba(75, 127, 125, 0.14); */
+  box-shadow: 0 1px 2px rgba(33, 55, 49, 0.06);
+}
+
+.trip-details-card h2 {
+  margin: 0 0 0.6rem;
+  font-size: 1.15rem;
+  color: var(--dark-olive);
+}
+
+.content {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .trip-details-page {
+    padding: 1rem 0.9rem 2rem;
+  }
+
+  .trip-details-header {
+    padding: 1.2rem;
+  }
+
+  .trip-details-meta-item {
+    min-width: 100%;
+  }
+}

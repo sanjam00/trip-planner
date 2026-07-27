@@ -1,0 +1,43 @@
+:root {
+  --olive: #778745;
+  --dark-olive: #606C38;
+  --cream: #fffaea;  
+  --gold: #BB9457;
+  --dark: #42582a;
+  --rust: #773004;
+  --light-rust: #834d2c;
+}
+
+button {
+  font-size: 1.2rem;
+  position: relative;
+  padding: .5em 1em;
+  margin: .25em;
+  background-color: #ffffff;
+  color: var(--olive);
+  border: none;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+button::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--rust);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.3s ease;
+}
+
+button:hover {
+  color: #7D7283;
+  transform: translateY(-1px);
+  cursor: pointer;
+}
+
+button:hover::after {
+  transform: scaleX(1);
+}

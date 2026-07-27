@@ -1,10 +1,10 @@
-:root {
+/* :root {
   --olive: #606C38;
   --cream: #FFF7E0;
   --gold: #BB9457;
   --dark: #42582a;
   --rust: #773004;
-}
+} */
 
 #signupPage {
   min-height: 100vh;
@@ -46,7 +46,7 @@
   margin-bottom: 0.45rem;
   font-size: 0.95rem;
   font-weight: 600;
-  color: var(--dark);
+  color: var(--rust);
 }
 
 #signupPage input {
@@ -63,7 +63,7 @@
   border-color: var(--olive);
   box-shadow: 0 0 0 3px rgba(96, 108, 56, 0.15);
 }
-
+/* 
 #signupPage button {
   width: 100%;
   margin-top: 0.5rem;
@@ -80,7 +80,7 @@
 #signupPage button:hover {
   background: var(--dark);
   transform: translateY(-1px);
-}
+} */
 
 #signupPage p {
   margin-top: 1rem;

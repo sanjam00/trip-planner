@@ -1,9 +1,10 @@
 // details for a singular trip
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, act } from "react"
 import { useParams } from "react-router";
 import { useAuth } from "../context/AuthContext";
 import { apiFetch } from "../api/api";
+import "../styles/TripDetailsPage.css";
 
 export default function TripDetailsPage(){
   const { trip_id } = useParams();  // grabs trip_id from /trips/<trip_id>
@@ -11,6 +12,7 @@ export default function TripDetailsPage(){
   const [tripData, setTripData] = useState(null);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [activeTab, setActiveTab] = useState(1);
 
   useEffect(() => {
     setLoading(true);
@@ -31,15 +33,119 @@ export default function TripDetailsPage(){
   if (error) return <p style={{ color: 'red' }}>{error}</p>
   if (!tripData) return <p>Trip not found...</p>
 
+  function updateTabs(id){
+    setActiveTab(id);
+  }
+
   // add checklists and itineraryitems
   // style page
   return (
-    <div>
-      <h1>{tripData.title}</h1>
-      <p>{tripData.destination}</p>
-      <p>{tripData.description}</p>
-      <p>{tripData.start_date} - {tripData.end_date}</p>
-      <p>{tripData.notes}</p>
+    <div className="trip-details-page">
+      <header className="trip-details-header">
+        <div className="trip-details-title-group">
+          <h1>{tripData.title}</h1>
+        </div>
+
+        <div className="trip-details-meta">
+          <div className="trip-details-meta-item">
+            <span className="trip-details-label">Destination</span>
+            <p>{tripData.destination}</p>
+          </div>
+          <div className="trip-details-meta-item">
+            <span className="trip-details-label">Dates</span>
+            <p>{tripData.start_date} – {tripData.end_date}</p>
+          </div>
+        </div>
+      </header>
+
+      <div className="tab-buttons">
+        <button onClick={() => updateTabs(1)}>
+          Overview
+        </button>
+        <button onClick={() => updateTabs(2)}>
+          Checklists
+        </button>
+        <button onClick={() => updateTabs(3)}>
+          Itinerary
+        </button>
+      </div>
+
+      <div className={activeTab === 1 ? "show-content" : "content"}>
+        <div className={"trip-details-content"}>
+          <section className="trip-details-card">
+            <h2>Description</h2>
+            <p>{tripData.description || "No description yet."}</p>
+          </section>
+
+          <section className="trip-details-card">
+            <h2>Notes</h2>
+            <p>{tripData.notes || "No notes yet."}</p>
+          </section>
+        </div>
+      </div>
+
+      <div className={activeTab === 2 ? "show-content" : "content"}>
+        <div className="trip-checklists">
+            <p>render checklists here</p>
+        </div>
+      </div>
+
+      <div className={activeTab === 3 ? "show-content" : "content"}>
+        <div className="trip-itinerary">
+          <p>render itinerary here</p>
+        </div>
+      </div>
     </div>
   )
 }
+
+{/* <div className="trip-details-page">
+  <header className="trip-details-header">
+    <div className="trip-details-title-group">
+      <h1>{tripData.title}</h1>
+    </div>
+
+    <div className="trip-details-meta">
+      <div className="trip-details-meta-item">
+        <span className="trip-details-label">Destination</span>
+        <p>{tripData.destination}</p>
+      </div>
+      <div className="trip-details-meta-item">
+        <span className="trip-details-label">Dates</span>
+        <p>{tripData.start_date} – {tripData.end_date}</p>
+      </div>
+    </div>
+  </header>
+
+  <div className="tab-buttons">
+    <button onClick={() => updateTabs(1)}>
+      Overview
+    </button>
+    <button onClick={() => updateTabs(2)}>
+      Checklists
+    </button>
+    <button onClick={() => updateTabs(3)}>
+      Itinerary
+    </button>
+  </div>
+
+  <div className={activeTab === 1 ? "show-content" : "content"}>
+    <section className="trip-details-card">
+      <h2>Description</h2>
+      <p>{tripData.description || "No description yet."}</p>
+    </section>
+
+    <section className="trip-details-card">
+      <h2>Notes</h2>
+      <p>{tripData.notes || "No notes yet."}</p>
+    </section>
+  </div>
+
+  <div className={activeTab === 1 ? "show-content" : "content"}>
+    <p>render checklists here</p>
+  </div>
+
+  <div className="trip-itinerary">
+    <p>render itinerary here</p>
+  </div>
+</div> */}
