@@ -1,5 +1,5 @@
 import { NavLink } from "react-router"
-// import "./NavBar.css"
+import "../styles/Navbar.css"
 
 export default function NavBar() {
 
@@ -8,15 +8,15 @@ export default function NavBar() {
 
       <div className="nav-icons">
         <NavLink to='/trips'>
-          Trips Page📗
+          📗
         </NavLink>
 
         <NavLink to='/trips/new'>
-          New Trip ➕
+          ➕
         </NavLink>
 
         <NavLink to='/whoami'>
-          Profile 🚹
+          🚹
         </NavLink>
       </div>
 

@@ -41,3 +41,34 @@ button:hover {
 button:hover::after {
   transform: scaleX(1);
 }
+
+/* body {
+  margin: 0;
+} */
+
+/* #root {
+  min-height: 100vh;
+} */
+
+main,
+.page-shell,
+.trip-details-page,
+.trips-page,
+.login-page,
+.signup-page {
+  /* width: min(1100px, 100%); */
+  margin: 0 auto;
+  padding: 0 2rem;
+  box-sizing: border-box;
+}
+
+@media (min-width: 769px) {
+  main,
+  .page-shell,
+  .trip-details-page,
+  .trips-page,
+  .login-page,
+  .signup-page {
+    width: min(1200px, calc(100% - 15rem));
+  }
+}
