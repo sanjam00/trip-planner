@@ -1,7 +1,7 @@
 $kind: http-request
 name: http://127.0.0.1:5000/trips/25/checklists
 description: ""
-url: http://127.0.0.1:5000/trips/25/checklists
+url: http://127.0.0.1:5000/trips/31/checklists
 method: POST
 body:
   type: json

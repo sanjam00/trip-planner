@@ -4,17 +4,28 @@ description: ""
 variables:
   - key: json_web_token_130g
     secret: true
+    disabled: false
   - key: json_web_token_0om1
     secret: true
+    disabled: false
   - key: json_web_token_096y
     secret: true
+    disabled: false
   - key: json_web_token_0pav
     secret: true
+    disabled: false
   - key: json_web_token_0mcj
     secret: true
+    disabled: false
   - key: json_web_token_0wrc
     secret: true
+    disabled: false
   - key: json_web_token_0c17
     secret: true
+    disabled: false
   - key: json_web_token_0fp9
     secret: true
+    disabled: false
+  - key: json_web_token_0v9u
+    secret: true
+    disabled: false
