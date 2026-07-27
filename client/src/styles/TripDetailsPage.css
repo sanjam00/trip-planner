@@ -54,10 +54,13 @@
 }
 
 .trip-details-meta-item {
-  min-width: 220px;
+  flex: 1 1 220px;
+  min-width: 0;
+  max-width: 100%;
   padding: 0.85rem 1rem;
   border-radius: 5px;
   background: #f2f8de;
+  box-sizing: border-box;
   /* border: 1px solid rgba(75, 127, 125, 0.14); */
 }
 
@@ -108,9 +111,15 @@
 
   .trip-details-header {
     padding: 1.2rem;
+    box-sizing: border-box;
+  }
+
+  .trip-details-meta {
+    flex-direction: column;
   }
 
   .trip-details-meta-item {
-    min-width: 100%;
+    width: 100%;
+    flex: 1 1 auto;
   }
 }
