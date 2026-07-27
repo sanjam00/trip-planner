@@ -7,12 +7,14 @@ import ProtectedRoute from './components/ProtectedRoute'
 import NavBar from './components/Navbar'
 import TripForm from './pages/TripFormPage'
 import TripDetailsPage from './pages/TripDetailsPage'
+import { useAuth } from './context/AuthContext'
 
 export default function App(){
+  const { token } = useAuth()
 
   return(
     <BrowserRouter>
-      <NavBar />
+      {token ? <NavBar /> : null}
       <div className="app-shell">
       <Routes>
         < Route path="/login" element={ <LoginPage /> } />
