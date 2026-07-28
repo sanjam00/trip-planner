@@ -2,6 +2,7 @@ import { useState } from "react"
 import { useNavigate, Link } from 'react-router'
 import { useAuth } from "../context/AuthContext";
 import "../styles/LoginPage.css"
+import '../index.css'
 
 export default function LoginPage(){
   const [username, setUsername] = useState('');
@@ -30,7 +31,9 @@ export default function LoginPage(){
   }
 
   return (
-    <div id="loginPage">
+    <div className="login-page">
+      <h1 id="site-name">Backcountry Book</h1>
+
       <h1>Log In</h1>
 
       {error && <p style={{color: 'red'}}>{error}</p>}

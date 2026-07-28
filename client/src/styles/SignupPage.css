@@ -6,7 +6,7 @@
   --rust: #773004;
 } */
 
-#signupPage {
+.signup-page {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -18,7 +18,7 @@
   /* background: linear-gradient(135deg, var(--cream) 0%, #ffffff 100%); */
 }
 
-#signupPage h1 {
+.signup-page h1 {
   margin-bottom: 1.25rem;
   color: var(--olive);
   font-size: 2rem;
@@ -27,7 +27,7 @@
   border: none;
 }
 
-#signupPage form {
+.signup-page form {
   width: min(100%, 360px);
   padding: 2rem;
   background: #ffffff;
@@ -36,20 +36,20 @@
   box-shadow: 0 12px 30px rgba(40, 54, 25, 0.08);
 }
 
-#signupPage form > div {
+.signup-page form > div {
   display: flex;
   flex-direction: column;
   margin-bottom: 1rem;
 }
 
-#signupPage label {
+.signup-page label {
   margin-bottom: 0.45rem;
   font-size: 0.95rem;
   font-weight: 600;
   color: var(--rust);
 }
 
-#signupPage input {
+.signup-page input {
   padding: 0.8rem 0.95rem;
   border: 1px solid #d8d1c2;
   border-radius: 2px;
@@ -59,12 +59,12 @@
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-#signupPage input:focus {
+.signup-page input:focus {
   border-color: var(--olive);
   box-shadow: 0 0 0 3px rgba(96, 108, 56, 0.15);
 }
 /* 
-#signupPage button {
+.signup-page button {
   width: 100%;
   margin-top: 0.5rem;
   padding: 0.9rem 1rem;
@@ -77,37 +77,37 @@
   transition: background 0.2s ease, transform 0.2s ease;
 }
 
-#signupPage button:hover {
+.signup-page button:hover {
   background: var(--dark);
   transform: translateY(-1px);
 } */
 
-#signupPage p {
+.signup-page p {
   margin-top: 1rem;
   color: var(--dark);
 }
 
-#signupPage a {
+.signup-page a {
   color: var(--rust);
   font-weight: 600;
   text-decoration: none;
 }
 
-#signupPage a:hover {
+.signup-page a:hover {
   text-decoration: underline;
 }
 
 @media only screen and (max-width: 600px) {
-  #signupPage {
+  .signup-page {
     padding: 1.25rem;
     margin: 1.25rem;
   }
 
-  #signupPage h1 {
+  .signup-page h1 {
     font-size: 1.75rem;
   }
 
-  #signupPage form {
+  .signup-page form {
     padding: 1.5rem;
   }
 }

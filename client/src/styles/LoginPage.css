@@ -6,7 +6,7 @@
   --rust: #773004;
 } */
 
-#loginPage {
+.login-page {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -18,7 +18,7 @@
   font-family: Inter, Arial, sans-serif;
 }
 
-#loginPage h1 {
+.login-page h1 {
   margin-bottom: 1.25rem;
   color: var(--olive);
   font-size: 2rem;
@@ -27,7 +27,7 @@
   border: none;
 }
 
-#loginPage form {
+.login-page form {
   width: min(100%, 360px);
   padding: 2rem;
   background: #ffffff;
@@ -35,20 +35,20 @@
   border-radius: 5px;
   box-shadow: 0 12px 30px rgba(40, 54, 25, 0.08);}
 
-#loginPage form > div {
+.login-page form > div {
   display: flex;
   flex-direction: column;
   margin-bottom: 1rem;
 }
 
-#loginPage label {
+.login-page label {
   margin-bottom: 0.45rem;
   font-size: 0.95rem;
   font-weight: 600;
   color: var(--rust);
 }
 
-#loginPage input {
+.login-page input {
   padding: 0.8rem 0.95rem;
   border: 1px solid #d8d1c2;
   border-radius: 2px;
@@ -58,12 +58,12 @@
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-#loginPage input:focus {
+.login-page input:focus {
   border-color: var(--olive);
   box-shadow: 0 0 0 3px rgba(96, 108, 56, 0.15);
 }
 
-/* #loginPage button {
+/* .login-page button {
   width: 100%;
   margin-top: 0.5rem;
   padding: 0.9rem 1rem;
@@ -76,37 +76,37 @@
   transition: background 0.2s ease, transform 0.2s ease;
 } */
 
-/* #loginPage button:hover {
+/* .login-page button:hover {
   background: var(--dark);
   transform: translateY(-1px);
 } */
 
-#loginPage p {
+.login-page p {
   margin-top: 1rem;
   color: var(--dark);
 }
 
-#loginPage a {
+.login-page a {
   color: var(--rust);
   font-weight: 600;
   text-decoration: none;
 }
 
-#loginPage a:hover {
+.login-page a:hover {
   text-decoration: underline;
 }
 
 @media only screen and (max-width: 600px) {
-  #loginPage {
+  .login-page {
     padding: 1.25rem;
     margin: 1.25rem;
   }
 
-  #loginPage h1 {
+  .login-page h1 {
     font-size: 1.75rem;
   }
 
-  #loginPage form {
+  .login-page form {
     padding: 1.5rem;
   }
 }

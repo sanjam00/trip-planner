@@ -6,6 +6,38 @@
   --dark: #42582a;
   --rust: #773004;
   --light-rust: #834d2c;
+  --custom-font-title: 'VaneDream-Regular', 'Garamond', serif;
+  --custom-font-headers: 'NationalPark-Regular', 'Trebuchet MS', 'Monsterrat', serif;
+  --font-text: 'Trebuchet MS', 'Monsterrat', serif;
+}
+
+/* custom font for the app title only */
+@font-face {
+  font-family: 'VaneDream-Regular';
+  src: url('fonts/VaneDream-Regular.ttf') format(truetype);
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* custom fonts for h1 elements */
+@font-face {
+  font-family: 'NationalPark-Regular';
+  src: url('fonts/national-park/NationalPark-Regular.otf') format(opentype);
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+#site-name{
+  font-family: "VaneDream-Regular";
+  font-weight: lighter;
+  font-size: 3.5em;
+  text-align: center;
+}
+
+h1{
+  font-family: var(--custom-font-headers);
 }
 
 button {

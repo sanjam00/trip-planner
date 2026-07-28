@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { useAuth } from "../context/AuthContext";
 import "../styles/SignupPage.css"
+import '../index.css'
 
 export default function SignupPage(){
   const [email, setEmail] = useState('');
@@ -41,7 +42,9 @@ export default function SignupPage(){
   }
 
   return (
-    <div id="signupPage">
+    <div className="signup-page">
+      <h1 id="site-name">Backcountry Book</h1>
+
       <h1>Create an account</h1>
 
       {error && <p style={{ color: 'red' }}>{error}</p>}
