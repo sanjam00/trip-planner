@@ -7,8 +7,8 @@ export default function TripCard({ trip }){
     <article className="trip-card">
       <h2>{trip.title}</h2>
       <div className="trip-meta">
-        <p className="trip-date">Start: {trip.start_date}</p>
-        <p className="trip-date">End: {trip.end_date}</p>
+        <p className="trip-date">{trip.start_date}</p>
+        <p className="trip-date">{trip.end_date}</p>
       </div>
     </article>
   )

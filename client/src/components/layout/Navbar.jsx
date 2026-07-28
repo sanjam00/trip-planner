@@ -10,9 +10,9 @@ export default function NavBar() {
         <NavLink to='/trips/new'>
           ➕
         </NavLink>
-        
-        <NavLink to='/trips'>
-          📗
+
+        <NavLink to='/trips' id="site-name" style={{ fontSize: '2em'}}>
+          B
         </NavLink>
 
         <NavLink to='/whoami'>

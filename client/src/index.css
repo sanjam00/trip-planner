@@ -8,7 +8,7 @@
   --light-rust: #834d2c;
   --custom-font-title: 'VaneDream-Regular', 'Garamond', serif;
   --custom-font-headers: 'NationalPark-Regular', 'Trebuchet MS', 'Monsterrat', serif;
-  --font-text: 'Trebuchet MS', 'Monsterrat', serif;
+  --custom-font-text: 'Nunito-Sans Light', sans-serif;
 }
 
 /* custom font for the app title only */
@@ -20,10 +20,27 @@
   font-display: swap;
 }
 
-/* custom fonts for h1 elements */
+/* custom font for h1 elements */
 @font-face {
   font-family: 'NationalPark-Regular';
   src: url('fonts/national-park/NationalPark-Regular.otf') format(opentype);
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* @font-face {
+  font-family: 'Mallio-Demo';
+  src: url('fonts/mallio-demo/Mallio\ Demo.otf') format(opentype);
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+} */
+
+/* custom font for text */
+@font-face {
+  font-family: 'Nunito-Sans Light';
+  src: url('fonts/nunito-sans.light.ttf') format(opentype);
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -40,7 +57,12 @@ h1{
   font-family: var(--custom-font-headers);
 }
 
+h2, p, label {
+  font-family: var(--custom-font-text);
+}
+
 button {
+  font-family: var(--custom-font-text);
   font-size: 1rem;
   position: relative;
   padding: .5em 1em;

@@ -1,7 +1,6 @@
 .trips-page {
   min-height: 100vh;
   padding: 2rem;
-  /* background: linear-gradient(135deg, var(--cream) 0%, #ffffff 100%); */
   color: var(--dark);
   font-family: Inter, Arial, sans-serif;
 }
