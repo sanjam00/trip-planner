@@ -7,12 +7,12 @@ export default function NavBar() {
     <nav className="navbar">
 
       <div className="nav-icons">
-        <NavLink to='/trips'>
-          📗
-        </NavLink>
-
         <NavLink to='/trips/new'>
           ➕
+        </NavLink>
+        
+        <NavLink to='/trips'>
+          📗
         </NavLink>
 
         <NavLink to='/whoami'>
