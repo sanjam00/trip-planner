@@ -14,6 +14,7 @@ export default function TripDetailsPage(){
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [activeTab, setActiveTab] = useState(1);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
     setLoading(true);
@@ -29,7 +30,32 @@ export default function TripDetailsPage(){
       .finally(() => setLoading(false));
   }, [trip_id, token])
 
-  // make laoding and errors universal and uniform
+  // ~~~~~~~~~
+  useEffect(() => {
+    const handleScroll = () => {
+      // let ticking = false;
+
+      // const handleScroll = () => {
+      //   if (!ticking) {
+      //     window.requestAnimationFrame(() => {
+      //       setIsScrolled(window.scrollY > 6);
+      //       ticking = false;
+      //     });
+
+      //     ticking = true;
+      //   }
+      // }
+      setIsScrolled(window.scrollY > 8);
+    };
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+  // ~~~~~~~~~
+
+  // eventually make laoding and errors universal and uniform
   if (loading) return <p>Loading...</p>
   if (error) return <p style={{ color: 'red' }}>{error}</p>
   if (!tripData) return <p>Trip not found...</p>
@@ -42,7 +68,7 @@ export default function TripDetailsPage(){
   // style page
   return (
     <div className="trip-details-page">
-      <header className="trip-details-header">
+      <header className={`trip-details-header${isScrolled ? " trip-details-header-scrolled" : ""}`}>
         <div className="trip-details-title-group">
           <h1>{tripData.title}</h1>
         </div>
