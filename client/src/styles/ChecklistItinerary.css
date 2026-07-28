@@ -1,0 +1,69 @@
+/* styling the checklist items and itinerary within tripdeatilspage */
+
+.trip-checklists,
+.trip-itinerary {
+  display: grid;
+  gap: 1rem;
+}
+
+.trip-checklist-card,
+.trip-itinerary-card {
+  padding: 1.35rem 1.5rem;
+  border-radius: 5px;
+  background: var(--cream, #fffaea);
+  box-shadow: 0 1px 2px rgba(33, 55, 49, 0.06);
+}
+
+.trip-checklist-card h3,
+.trip-itinerary-card h3 {
+  margin: 0 0 0.7rem;
+  font-size: 1.1rem;
+  color: var(--dark-olive, var(--dark, #42582a));
+}
+
+.trip-checklist-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.6rem;
+}
+
+.trip-checklist-list li {
+  position: relative;
+  padding-left: 1rem;
+  color: var(--olive, #606C38);
+  line-height: 1.6;
+}
+
+.trip-checklist-list li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--gold, #BB9457);
+  font-weight: 700;
+}
+
+.trip-itinerary-card p {
+  margin: 0;
+  color: var(--olive, #606C38);
+  line-height: 1.7;
+}
+
+.trip-itinerary-day {
+  font-weight: 600;
+  margin-bottom: 0.2rem;
+}
+
+.trip-itinerary-time {
+  font-size: 0.95rem;
+}
+
+.trip-empty-state {
+  margin: 0;
+  padding: 1.2rem 1.3rem;
+  border-radius: 5px;
+  background: var(--cream, #fffaea);
+  color: var(--olive, #606C38);
+  box-shadow: 0 1px 2px rgba(33, 55, 49, 0.06);
+}

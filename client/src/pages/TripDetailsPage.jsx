@@ -5,6 +5,7 @@ import { useParams } from "react-router";
 import { useAuth } from "../context/AuthContext";
 import { apiFetch } from "../api/api";
 import "../styles/TripDetailsPage.css";
+import "../styles/ChecklistItinerary.css";
 import ChecklistSection from "../components/checklists/ChecklistSection";
 
 export default function TripDetailsPage(){
@@ -114,12 +115,12 @@ export default function TripDetailsPage(){
       <div className={activeTab === 2 ? "show-content" : "content"}>
         <div className="trip-checklists">
           {tripData.checklists.length === 0 ? (
-            <p>No checklists yet.</p>
+            <p className="trip-empty-state">No checklists yet.</p>
           ) : (
             tripData.checklists.map(checklist => (
-              <div key={checklist.id}>
+              <div key={checklist.id} className="trip-checklist-card">
                 <h3>{checklist.title}</h3>
-                <ul>
+                <ul className="trip-checklist-list">
                   {checklist.items.map(item => (
                     <li key={item.id}>
                       {item.item_name} — {item.status}
@@ -135,13 +136,13 @@ export default function TripDetailsPage(){
       <div className={activeTab === 3 ? "show-content" : "content"}>
         <div className="trip-itinerary">
           {tripData.itinerary_items.length === 0 ? (
-            <p>No itinerary yet.</p>
+            <p className="trip-empty-state">No itinerary yet.</p>
           ) : (
               tripData.itinerary_items.map(item => (
-              <div key={item.id}>
+              <div key={item.id} className="trip-itinerary-card">
                 <h3>{item.activity}</h3>
-                <p>{item.day}</p>
-                <p>{item.start_time} - {item.end_time}</p>
+                <p className="trip-itinerary-day">{item.day}</p>
+                <p className="trip-itinerary-time">{item.start_time} - {item.end_time}</p>
               </div>
             ))
           )}
