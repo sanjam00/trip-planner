@@ -50,7 +50,7 @@ class ItineraryItemIndex(Resource):
       end_time = datetime.strptime(request_json.get('end_time'), '%H:%M:%S').time()
       day = datetime.strptime(request_json.get('day'), '%Y-%m-%d').date()
     except (ValueError, TypeError):
-      return {'errors': ['Invalid date format, expected YYYY-MM-DD']}, 422
+      return {'errors': ['Invalid date format, expected YYYY-MM-DD, or tnvalid time format, expected HH:MM:SS']}, 422
 
     item = ItineraryItem(
       activity=request_json.get('activity'),

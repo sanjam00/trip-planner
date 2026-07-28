@@ -60,13 +60,13 @@ export default function TripDetailsPage(){
       </header>
 
       <div className="tab-buttons">
-        <button onClick={() => updateTabs(1)}>
+        <button className={activeTab === 1 ? "active-tab" : ""} onClick={() => updateTabs(1)}>
           Overview
         </button>
-        <button onClick={() => updateTabs(2)}>
+        <button className={activeTab === 2 ? "active-tab" : ""} onClick={() => updateTabs(2)}>
           Checklists
         </button>
-        <button onClick={() => updateTabs(3)}>
+        <button className={activeTab === 3 ? "active-tab" : ""} onClick={() => updateTabs(3)}>
           Itinerary
         </button>
       </div>
@@ -87,7 +87,6 @@ export default function TripDetailsPage(){
 
       <div className={activeTab === 2 ? "show-content" : "content"}>
         <div className="trip-checklists">
-          <h2>Checklists</h2>
           {tripData.checklists.length === 0 ? (
             <p>No checklists yet.</p>
           ) : (
