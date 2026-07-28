@@ -1,12 +1,5 @@
-/* :root {
-  --olive: #606C38;
-  --cream: #FFF7E0;
-  --gold: #BB9457;
-  --dark: #42582a;
-  --rust: #773004;
-} */
 
-#tripFormPage {
+.trip-form-page {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -17,7 +10,7 @@
   font-family: Inter, Arial, sans-serif;
 }
 
-#tripFormPage h1 {
+.trip-form-page h1 {
   margin-bottom: 1.25rem;
   color: var(--olive);
   font-size: 2rem;
@@ -26,7 +19,7 @@
   border: none;
 }
 
-#tripFormPage form {
+.trip-form-page form {
   width: min(100%, 560px);
   padding: 2rem;
   background: #ffffff;
@@ -35,21 +28,21 @@
   box-shadow: 0 12px 30px rgba(40, 54, 25, 0.08);
 }
 
-#tripFormPage form > div {
+.trip-form-page form > div {
   display: flex;
   flex-direction: column;
   margin-bottom: 1rem;
 }
 
-#tripFormPage label {
+.trip-form-page label {
   margin-bottom: 0.45rem;
   font-size: 0.95rem;
   font-weight: 600;
   color: var(--rust);
 }
 
-#tripFormPage input,
-#tripFormPage textarea {
+.trip-form-page input,
+.trip-form-page textarea {
   padding: 0.8rem 0.95rem;
   border: 1px solid #d8d1c2;
   border-radius: 2px;
@@ -59,18 +52,18 @@
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-#tripFormPage textarea {
+.trip-form-page textarea {
   resize: vertical;
   min-height: 120px;
 }
 
-#tripFormPage input:focus,
-#tripFormPage textarea:focus {
+.trip-form-page input:focus,
+.trip-form-page textarea:focus {
   border-color: var(--olive);
   box-shadow: 0 0 0 3px rgba(96, 108, 56, 0.15);
 }
 
-/* #tripFormPage button {
+/* .trip-form-page button {
   width: 100%;
   margin-top: 0.5rem;
   padding: 0.9rem 1rem;
@@ -83,22 +76,22 @@
   transition: background 0.2s ease, transform 0.2s ease;
 } */
 
-/* #tripFormPage button:hover {
+/* .trip-form-page button:hover {
   background: var(--dark);
   transform: translateY(-1px);
 } */
 
 @media only screen and (max-width: 600px) {
-  #tripFormPage {
+  .trip-form-page {
     padding: 1.25rem;
     margin: 1.25rem;
   }
 
-  #tripFormPage h1 {
+  .trip-form-page h1 {
     font-size: 1.75rem;
   }
 
-  #tripFormPage form {
+  .trip-form-page form {
     padding: 1.5rem;
   }
 }

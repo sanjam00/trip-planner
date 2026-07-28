@@ -63,7 +63,7 @@ export default function TripForm(){
   }
 
   return (
-    <div id="tripFormPage">
+    <div className="trip-form-page">
       <h1>Create a new trip</h1>
 
       {error && <p style={{ color: 'red' }}>{error}</p>}

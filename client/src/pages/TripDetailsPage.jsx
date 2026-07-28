@@ -7,6 +7,7 @@ import { apiFetch } from "../api/api";
 import "../styles/TripDetailsPage.css";
 import "../styles/ChecklistItinerary.css";
 import ChecklistSection from "../components/checklists/ChecklistSection";
+import ChecklistForm from "../components/checklists/ChecklistForm";
 
 export default function TripDetailsPage(){
   const { trip_id } = useParams();  // grabs trip_id from /trips/<trip_id>
@@ -134,6 +135,7 @@ export default function TripDetailsPage(){
               </div>
             ))
           )}
+          < ChecklistForm />
         </div>
       </div>
 
