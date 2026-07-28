@@ -108,7 +108,17 @@ export default function TripDetailsPage(){
 
       <div className={activeTab === 3 ? "show-content" : "content"}>
         <div className="trip-itinerary">
-          <p>render itinerary here</p>
+          {tripData.itinerary_items.length === 0 ? (
+            <p>No itinerary yet.</p>
+          ) : (
+              tripData.itinerary_items.map(item => (
+              <div key={item.id}>
+                <h3>{item.activity}</h3>
+                <p>{item.day}</p>
+                <p>{item.start_time} - {item.end_time}</p>
+              </div>
+            ))
+          )}
         </div>
       </div>
     </div>
