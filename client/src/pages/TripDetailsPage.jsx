@@ -69,34 +69,38 @@ export default function TripDetailsPage(){
   // style page
   return (
     <div className="trip-details-page">
-      <header className={`trip-details-header${isScrolled ? " trip-details-header-scrolled" : ""}`}>
-        <div className="trip-details-title-group">
-          <h1>{tripData.title}</h1>
-        </div>
-
-        <div className="trip-details-meta">
-          <div className="trip-details-meta-item">
-            <span className="trip-details-label">Destination</span>
-            <p>{tripData.destination}</p>
+      {/* <div className="header-buttons-container">  
+      added new classname bc someone on stack overflow said to group in the same container to make sticky work properly 
+      but that messed up the sticky of the header alone*/}
+        <header className={`trip-details-header${isScrolled ? " trip-details-header-scrolled" : ""}`}>
+          <div className="trip-details-title-group">
+            <h1>{tripData.title}</h1>
           </div>
-          <div className="trip-details-meta-item">
-            <span className="trip-details-label">Dates</span>
-            <p>{tripData.start_date} – {tripData.end_date}</p>
-          </div>
-        </div>
-      </header>
 
-      <div className="tab-buttons">
-        <button className={activeTab === 1 ? "active-tab" : ""} onClick={() => updateTabs(1)}>
-          Overview
-        </button>
-        <button className={activeTab === 2 ? "active-tab" : ""} onClick={() => updateTabs(2)}>
-          Checklists
-        </button>
-        <button className={activeTab === 3 ? "active-tab" : ""} onClick={() => updateTabs(3)}>
-          Itinerary
-        </button>
-      </div>
+          <div className="trip-details-meta">
+            <div className="trip-details-meta-item">
+              <span className="trip-details-label">Destination</span>
+              <p>{tripData.destination}</p>
+            </div>
+            <div className="trip-details-meta-item">
+              <span className="trip-details-label">Dates</span>
+              <p>{tripData.start_date} – {tripData.end_date}</p>
+            </div>
+          </div>
+        </header>
+
+        <div className="tab-buttons">
+          <button className={activeTab === 1 ? "active-tab" : ""} onClick={() => updateTabs(1)}>
+            Overview
+          </button>
+          <button className={activeTab === 2 ? "active-tab" : ""} onClick={() => updateTabs(2)}>
+            Checklists
+          </button>
+          <button className={activeTab === 3 ? "active-tab" : ""} onClick={() => updateTabs(3)}>
+            Itinerary
+          </button>
+        </div>
+      {/* </div> */}
 
       <div className={activeTab === 1 ? "show-content" : "content"}>
         <div className={"trip-details-content"}>
