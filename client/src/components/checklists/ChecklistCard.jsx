@@ -5,6 +5,7 @@ import { useAuth } from "../../context/AuthContext";
 import { apiFetch } from "../../api/api";
 import ChecklistItemRow from "./ChecklistItemRow";
 import ChecklistItemForm from "./ChecklistItemForm.jsx";
+import "../../styles/ChecklistItem.css";
 
 export default function ChecklistCard({
   tripId, checklist,
@@ -34,37 +35,49 @@ export default function ChecklistCard({
   }
 
   return (
-    <div>
+    <div className="checklist-card" id={`checklist-card-${checklist.id}`}>
       {editing ? (
-        <form onSubmit={handleRename}>
-          <input value={title} onChange={(e) => setTitle(e.target.value)} required />
-          <button type="submit">Save</button>
-          <button type="button" onClick={() => setEditing(false)}>Cancel</button>
+        <form className="checklist-edit-form" onSubmit={handleRename}>
+          <input
+            className="checklist-edit-input"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            required
+          />
+          <div className="checklist-edit-actions">
+            <button type="submit">Save</button>
+            <button type="button" onClick={() => setEditing(false)}>Cancel</button>
+          </div>
         </form>
       ) : (
-        <h3 onClick={() => setEditing(true)}>{checklist.title}</h3>
+        <div className="checklist-header">
+          <h3 className="checklist-title" onClick={() => setEditing(true)}>{checklist.title}</h3>
+          <button className="checklist-delete-btn" type="button" onClick={handleDelete}>Delete checklist</button>
+        </div>
       )}
 
-      <button onClick={handleDelete}>Delete checklist</button>
+      {!editing && (
+        <>
+          <ul className="checklist-list">
+            {checklist.items.map(item => (
+              <ChecklistItemRow
+                key={item.id}
+                tripId={tripId}
+                checklistId={checklist.id}
+                item={item}
+                onItemChanged={onItemChanged}
+                onItemDeleted={onItemDeleted}
+              />
+            ))}
+          </ul>
 
-      <ul>
-        {checklist.items.map(item => (
-          <ChecklistItemRow
-            key={item.id}
+          <ChecklistItemForm
             tripId={tripId}
             checklistId={checklist.id}
-            item={item}
-            onItemChanged={onItemChanged}
-            onItemDeleted={onItemDeleted}
+            onItemCreated={onItemCreated}
           />
-        ))}
-      </ul>
-
-      <ChecklistItemForm
-        tripId={tripId}
-        checklistId={checklist.id}
-        onItemCreated={onItemCreated}
-      />
+        </>
+      )}
     </div>
   );
 }

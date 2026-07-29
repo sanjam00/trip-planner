@@ -2,6 +2,7 @@
 
 import ChecklistCard from "./ChecklistCard";
 import ChecklistForm from "./ChecklistForm";
+import "../../styles/ChecklistItem.css";
 
 export default function ChecklistSection({
   tripId, checklists,
@@ -10,8 +11,8 @@ export default function ChecklistSection({
   }) {
 
   return (
-    <section>
-      {checklists.length === 0 && <p>No checklists yet.</p>}
+    <section className="checklist-section">
+      {checklists.length === 0 && <p className="checklist-empty">No checklists yet.</p>}
 
       {checklists.map(checklist => (
         <ChecklistCard

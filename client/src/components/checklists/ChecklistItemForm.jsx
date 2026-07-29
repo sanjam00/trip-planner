@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { apiFetch } from "../../api/api";
+import "../../styles/ChecklistItem.css";
 
 export default function ChecklistItemForm({ tripId, checklistId, onItemCreated }) {
   const [itemName, setItemName] = useState('');
@@ -17,14 +18,15 @@ export default function ChecklistItemForm({ tripId, checklistId, onItemCreated }
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="checklist-item-form" onSubmit={handleSubmit}>
       <input
+        className="checklist-item-input"
         value={itemName}
         onChange={(e) => setItemName(e.target.value)}
         placeholder="Add item"
         required
       />
-      <button type="submit">Add</button>
+      <button className="checklist-item-submit" type="submit">Add</button>
     </form>
   );
 }
