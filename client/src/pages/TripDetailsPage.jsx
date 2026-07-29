@@ -32,7 +32,60 @@ export default function TripDetailsPage(){
       .finally(() => setLoading(false));
   }, [trip_id, token])
 
-  // ~~~~~~~~~
+  function handleChecklistCreated(newChecklist){
+    setTripData(prev => ({
+      ...prev,
+      checklists:[ ...prev.checklists, { ...newChecklist, items: [] }]
+    }));
+  }
+
+  function handleChecklistUpdated(updatedChecklist) {
+    setTripData(prev => ({
+      ...prev,
+      checklists: prev.checklists.map(c =>
+        c.id === updatedChecklist.id ? { ...c, ...updatedChecklist } : c
+      )
+    }));
+  }
+
+  function handleChecklistDeleted(checklistId){
+    setTripData(prev => ({
+      ...prev,
+      checklists: prev.checklists.filter(c => c.id !== checklistId)
+    }));
+  }
+
+  function handleItemChanged(checklistId, updatedItem){
+    setTripData( prev => ({
+      ...prev,
+      checklists: prev.checklists.map(c => 
+        c.id !== checklistId ? c : {
+          ...c,
+          items: c.items.map(i => i.id === updatedItem.id ? updatedItem : i)
+        }
+      )
+    }));
+  }
+
+  function handleItemCreated(checklistId, newItem){
+    setTripData(prev => ({
+      ...prev,
+      checklists: prev.checklists.map(c =>
+        c.id !== checklistId ? c : {...c, items: [...c.items, newItem]}
+      )
+    }));
+  }
+
+  function handleItemDeleted(checklistId, itemId){
+    setTripData(prev => ({
+      ...prev,
+      checklists: prev.checklists.map(c => 
+        c.id !== checklistId ? c : {...c, items: c.items.filter(i => i.id !== itemId)}
+      )
+    }));
+  }
+
+  // scroll event listener
   useEffect(() => {
     const handleScroll = () => {
       // let ticking = false;
@@ -55,7 +108,6 @@ export default function TripDetailsPage(){
 
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-  // ~~~~~~~~~
 
   // eventually make laoding and errors universal and uniform
   if (loading) return <p>Loading...</p>
@@ -103,6 +155,7 @@ export default function TripDetailsPage(){
         </div>
       {/* </div> */}
 
+    {/* overview */}
       <div className={activeTab === 1 ? "show-content" : "content"}>
         <div className={"trip-details-content"}>
           <section className="trip-details-card">
@@ -117,9 +170,10 @@ export default function TripDetailsPage(){
         </div>
       </div>
 
+    {/* checklists */}
       <div className={activeTab === 2 ? "show-content" : "content"}>
         <div className="trip-checklists">
-          {tripData.checklists.length === 0 ? (
+          {/* {tripData.checklists.length === 0 ? (
             <p className="trip-empty-state">No checklists yet.</p>
           ) : (
             tripData.checklists.map(checklist => (
@@ -134,11 +188,21 @@ export default function TripDetailsPage(){
                 </ul>
               </div>
             ))
-          )}
-          < ChecklistForm />
+          )} */}
+          < ChecklistSection 
+          tripId={trip_id}
+          checklists={tripData.checklists}
+          onChecklistCreated={handleChecklistCreated}
+          onChecklistUpdated={handleChecklistUpdated}
+          onChecklistDeleted={handleChecklistDeleted}
+          onItemCreated={handleItemCreated}
+          onItemChanged={handleItemChanged}
+          onItemDeleted={handleItemDeleted}
+          />
         </div>
       </div>
 
+    {/* itinerary */}
       <div className={activeTab === 3 ? "show-content" : "content"}>
         <div className="trip-itinerary">
           {tripData.itinerary_items.length === 0 ? (
