@@ -118,8 +118,6 @@ export default function TripDetailsPage(){
     setActiveTab(id);
   }
 
-  // add checklists and itineraryitems
-  // style page
   return (
     <div className="trip-details-page">
       {/* <div className="header-buttons-container">  
@@ -173,22 +171,6 @@ export default function TripDetailsPage(){
     {/* checklists */}
       <div className={activeTab === 2 ? "show-content" : "content"}>
         <div className="trip-checklists">
-          {/* {tripData.checklists.length === 0 ? (
-            <p className="trip-empty-state">No checklists yet.</p>
-          ) : (
-            tripData.checklists.map(checklist => (
-              <div key={checklist.id} className="trip-checklist-card">
-                <h3>{checklist.title}</h3>
-                <ul className="trip-checklist-list">
-                  {checklist.items.map(item => (
-                    <li key={item.id}>
-                      {item.item_name} — {item.status}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))
-          )} */}
           < ChecklistSection 
           tripId={trip_id}
           checklists={tripData.checklists}
