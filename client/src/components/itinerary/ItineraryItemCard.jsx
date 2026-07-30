@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { apiFetch } from "../../api/api";
 import { dateInputToApiFormat, formatDateForDisplay, formatTimeForDisplay, timeInputToApiFormat } from "../../utils/dateTime";
+import "../../styles/ItineraryItem.css";
 
 export default function ItineraryCard({
   tripId, itineraryItem, onItineraryItemUpdated, onItineraryItemDeleted
@@ -79,41 +80,48 @@ export default function ItineraryCard({
     <div className="itinerary-card">
       {editing ? (
         <form className="itinerary-edit-form" onSubmit={handleUpdate}>
-          {error && <p style={{ color: 'red' }}>{error}</p>}
-          <input
-            className="itinerary-edit-input"
-            type="text"
-            value={activity}
-            onChange={(e) => setActivity(e.target.value)}
-            required
-          />
-          <input
-            className="itinerary-edit-input"
-            type="date"
-            value={day}
-            onChange={(e) => setDay(e.target.value)}
-          />
-          <input
-            className="itinerary-edit-input"
-            type="time"
-            value={startTime}
-            onChange={(e) => setStartTime(e.target.value)}
-          />
-          <input
-            className="itinerary-edit-input"
-            type="time"
-            value={endTime}
-            onChange={(e) => setEndTime(e.target.value)}
-          />
-
-          <button type="submit">Save</button>
-          <button type="button" onClick={() => setEditing(false)}>Cancel</button>
+          {error && <p className="itinerary-error">{error}</p>}
+          <div className="itinerary-edit-row itinerary-edit-row-main">
+            <input
+              className="itinerary-edit-input"
+              type="text"
+              value={activity}
+              onChange={(e) => setActivity(e.target.value)}
+              required
+            />
+            <div className="itinerary-edit-actions">
+              <button type="submit">Save</button>
+              <button type="button" onClick={() => setEditing(false)}>Cancel</button>
+            </div>
+          </div>
+          <div className="itinerary-edit-row">
+            <input
+              className="itinerary-edit-input"
+              type="date"
+              value={day}
+              onChange={(e) => setDay(e.target.value)}
+            />
+            <input
+              className="itinerary-edit-input"
+              type="time"
+              value={startTime}
+              onChange={(e) => setStartTime(e.target.value)}
+            />
+            <input
+              className="itinerary-edit-input"
+              type="time"
+              value={endTime}
+              onChange={(e) => setEndTime(e.target.value)}
+            />
+          </div>
         </form>
       ) : (
         <div className="itinerary-item">
-          <h3 className="itinerary-activity" onClick={() => setEditing(true)}>{itineraryItem.activity}</h3>
+          <div className="itinerary-item-header">
+            <h3 className="itinerary-activity" onClick={() => setEditing(true)}>{itineraryItem.activity}</h3>
+            <button className="itinerary-delete-btn" type="button" onClick={handleDelete}>Delete item</button>
+          </div>
           <p className="itinerary-item-data" onClick={() => setEditing(true)}>{formatDateForDisplay(itineraryItem.day)}: {formatTimeForDisplay(itineraryItem.start_time)}-{formatTimeForDisplay(itineraryItem.end_time)}</p>
-          <button className="checklist-delete-btn" type="button" onClick={handleDelete}>Delete item</button>
         </div>
       )}
 

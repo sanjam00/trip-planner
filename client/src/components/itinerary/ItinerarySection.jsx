@@ -1,6 +1,6 @@
 import ItineraryCard from "./ItineraryItemCard";
 import ItineraryForm from "./ItineraryItemForm";
-
+import "../../styles/ItineraryItem.css";
 
 export default function ItinerarySection({
   tripId, itineraryItems, 

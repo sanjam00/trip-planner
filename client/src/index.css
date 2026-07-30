@@ -1,7 +1,10 @@
 :root {
-  --olive: #778745;
-  --dark-olive: #606C38;
-  --cream: #fffaea;  
+  --olive: #e9e9e9;
+  /* --olive: #778745; */
+  --dark-olive: #e9e9e9;
+  /* --dark-olive: #606C38; */
+  --cream: #806335;
+  /* --cream: #fffaea;   */
   --gold: #BB9457;
   --dark: #42582a;
   --rust: #773004;
@@ -68,7 +71,7 @@ button {
   padding: .5em 1em;
   margin: .25em;
   background-color: #ffffff;
-  color: var(--olive);
+  color: var(--dark);
   border: none;
   transition: color 0.3s ease, transform 0.3s ease;
 }
