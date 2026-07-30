@@ -91,23 +91,23 @@ export default function TripDetailsPage(){
   function handleItineraryItemCreated(newItem) {
     setTripData(prev => ({
       ...prev,
-      items: [...prev.items, { ...newItem, itinerary_items: [] }]
+      itinerary_items: [...prev.itinerary_items, newItem]
     }));
   }
 
-  function handleItineraryItemUpdated(updatedItem){
+  function handleItineraryItemUpdated(updatedItem) {
     setTripData(prev => ({
       ...prev,
-      items: prev.items.map(i => 
-        i.id === updatedItem.id ? {...i, ...updatedItem} : i
+      itinerary_items: prev.itinerary_items.map(i =>
+        i.id === updatedItem.id ? { ...i, ...updatedItem } : i
       )
-    }))
+    }));
   }
 
   function handleItineraryItemDeleted(itemId) {
     setTripData(prev => ({
       ...prev,
-      items: prev.items.filter(i => i.id !== itemId)
+      itinerary_items: prev.itinerary_items.filter(i => i.id !== itemId)
     }));
   }
 

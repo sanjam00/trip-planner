@@ -1,10 +1,126 @@
+import { useState } from "react";
+import { useAuth } from "../../context/AuthContext";
+import { apiFetch } from "../../api/api";
 
+export default function ItineraryCard({
+  tripId, itineraryItem, onItineraryItemUpdated, onItineraryItemDeleted
+}) {
+  const [editing, setEditing] = useState(false);
+  const [activity, setActivity] = useState(itineraryItem.activity);
+  const [startTime, setStartTime] = useState(itineraryItem.start_time);
+  const [endTime, setEndTime] = useState(itineraryItem.end_time);
+  const [day, setDay] = useState(itineraryItem.day);
+  const [error, setError] = useState('');
+  const { token } = useAuth();
 
-export default function ItineraryCard() {
+  async function handleUpdate(e) {
+    e.preventDefault();
+    setError('');
+
+    try {
+      const updated = await apiFetch(`/trips/${tripId}/itinerary-items/${itineraryItem.id}`, token, {
+        method: 'PATCH',
+        body: JSON.stringify({
+          activity,
+          start_time: startTime,
+          end_time: endTime,
+          day,
+        }),
+      });
+      onItineraryItemUpdated(updated);
+      setEditing(false);
+    } catch (err) {
+      setError(err.message);
+    }
+  }
+
+  async function handleDelete() {
+    await apiFetch(`/trips/${tripId}/itinerary-items/${itineraryItem.id}`, token, {
+      method: 'DELETE',
+    });
+    onItineraryItemDeleted(itineraryItem.id);
+  }
+
+  if (editing) {
+    return (
+      <form onSubmit={handleUpdate}>
+        {error && <p style={{ color: 'red' }}>{error}</p>}
+
+        <input
+          type="text"
+          value={activity}
+          onChange={(e) => setActivity(e.target.value)}
+          required
+        />
+        <input
+          type="time"
+          value={startTime}
+          onChange={(e) => setStartTime(e.target.value)}
+        />
+        <input
+          type="time"
+          value={endTime}
+          onChange={(e) => setEndTime(e.target.value)}
+        />
+        <input
+          type="date"
+          value={day}
+          onChange={(e) => setDay(e.target.value)}
+        />
+
+        <button type="submit">Save</button>
+        <button type="button" onClick={() => setEditing(false)}>Cancel</button>
+      </form>
+    );
+  }
 
   return (
-    <div>
-      <h1>itinerary card</h1>
+    <div className="itinerary-card">
+      {editing ? (
+        <form className="itinerary-edit-form" onSubmit={handleUpdate}>
+          {error && <p style={{ color: 'red' }}>{error}</p>}
+          <input
+            className="itinerary-edit-input"
+            type="text"
+            value={activity}
+            onChange={(e) => setActivity(e.target.value)}
+            required
+          />
+          <input
+            className="itinerary-edit-input"
+            type="time"
+            value={startTime}
+            onChange={(e) => setStartTime(e.target.value)}
+          />
+          <input
+            className="itinerary-edit-input"
+            type="time"
+            value={endTime}
+            onChange={(e) => setEndTime(e.target.value)}
+          />
+          <input
+            className="itinerary-edit-input"
+            type="date"
+            value={day}
+            onChange={(e) => setDay(e.target.value)}
+          />
+
+          <button type="submit">Save</button>
+          <button type="button" onClick={() => setEditing(false)}>Cancel</button>
+        </form>
+      ) : (
+        <div className="itinerary-item">
+          <h3 className="itinerary-activity" onClick={() => setEditing(true)}>{itineraryItem.activity}</h3>
+          <p className="itinerary-item-data" onClick={() => setEditing(true)}>{itineraryItem.start_time}-{itineraryItem.end_time}</p>
+          <p className="itinerary-item-data" onClick={() => setEditing(true)}>{itineraryItem.day}</p>
+          <button className="checklist-delete-btn" type="button" onClick={handleDelete}>Delete item</button>
+        </div>
+      )}
+
+      {/* <h3>{itineraryItem.activity}</h3>
+      <p>{itineraryItem.day}: {itineraryItem.start_time} – {itineraryItem.end_time}</p>
+      <button onClick={() => setEditing(true)}>Edit</button>
+      <button onClick={handleDelete}>Delete</button> */}
     </div>
-  )
+  );
 }
