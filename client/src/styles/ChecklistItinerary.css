@@ -10,7 +10,7 @@
 .trip-itinerary-card {
   padding: 1.35rem 1.5rem;
   border-radius: 5px;
-  background: var(--cream, #fffaea);
+  background: var(--rust, #fffaea);
   box-shadow: 0 1px 2px rgba(33, 55, 49, 0.06);
 }
 
@@ -18,7 +18,7 @@
 .trip-itinerary-card h3 {
   margin: 0 0 0.7rem;
   font-size: 1.1rem;
-  color: var(--dark-olive, var(--dark, #42582a));
+  color: var(--silver, var(--dark, #42582a));
 }
 
 .trip-checklist-list {
@@ -32,7 +32,7 @@
 .trip-checklist-list li {
   position: relative;
   padding-left: 1rem;
-  color: var(--olive, #606C38);
+  color: var(--silver, #606C38);
   line-height: 1.6;
 }
 
@@ -46,7 +46,7 @@
 
 .trip-itinerary-card p {
   margin: 0;
-  color: var(--olive, #606C38);
+  color: var(--silver, #606C38);
   line-height: 1.7;
 }
 
@@ -63,7 +63,7 @@
   margin: 0;
   padding: 1.2rem 1.3rem;
   border-radius: 5px;
-  background: var(--cream, #fffaea);
-  color: var(--olive, #606C38);
+  background: var(--rust, #fffaea);
+  color: var(--silver, #606C38);
   box-shadow: 0 1px 2px rgba(33, 55, 49, 0.06);
 }

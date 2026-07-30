@@ -12,7 +12,7 @@
 }
 
 .itinerary-card {
-  background: var(--cream);
+  background: var(--rust);
   border: 1px solid rgba(202, 203, 199, 0.2);
   border-radius: 5px;
   padding: 1rem;
@@ -40,7 +40,7 @@
 
 .itinerary-activity {
   margin: 0;
-  color: var(--olive);
+  color: var(--silver);
   font-family: var(--custom-font-text);
   font-size: 1.15rem;
   cursor: pointer;
@@ -48,10 +48,10 @@
 
 .itinerary-item-data {
   margin: 0;
-  color: var(--olive);
+  color: var(--silver);
   font-family: var(--custom-font-text);
   cursor: pointer;
-  background: #c9ac7e;
+  background: var(--light-gold);
   padding: 0.5rem 0.6rem;
   border-radius: 5px;
 }
@@ -59,8 +59,8 @@
 .itinerary-delete-btn,
 .itinerary-form-button,
 .itinerary-edit-actions button {
-  background-color: var(--cream);
-  color: var(--olive);
+  background-color: var(--rust);
+  color: var(--silver);
   border-radius: 5px;
   padding: 0.45rem 0.7rem;
   margin: 0;
@@ -70,7 +70,7 @@
 .itinerary-delete-btn:hover,
 .itinerary-form-button:hover,
 .itinerary-edit-actions button:hover {
-  color: var(--rust);
+  color: var(--silver);
   transform: translateY(-1px);
 }
 

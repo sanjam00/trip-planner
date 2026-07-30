@@ -2,12 +2,11 @@
   min-height: 100vh;
   padding: 2rem;
   color: var(--dark);
-  font-family: Inter, Arial, sans-serif;
 }
 
 .trips-page h1 {
   margin: 1.5em 0;
-  color: var(--olive);
+  color: var(--rust);
   font-size: 2rem;
   font-weight: 700;
 }

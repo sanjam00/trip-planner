@@ -12,7 +12,7 @@
 }
 
 .checklist-card {
-  background: var(--cream);
+  background: var(--rust);
   border: 1px solid rgba(202, 203, 199, 0.2);
   border-radius: 5px;
   padding: 1rem;
@@ -31,7 +31,7 @@
 
 .checklist-title {
   margin: 0;
-  color: var(--olive);
+  color: var(--silver);
   font-family: var(--custom-font-text);
   font-size: 1.15rem;
   cursor: pointer;
@@ -41,8 +41,8 @@
 .checklist-form-button,
 .checklist-item-submit,
 .checklist-edit-actions button {
-  background-color: var(--cream);
-  color: var(--olive);
+  background-color: var(--rust);
+  color: var(--silver);
   border: 1px solid rgba(202, 203, 199, 0.5);
   border-radius: 5px;
   padding: 0.45rem 0.7rem;
@@ -53,7 +53,7 @@
 .checklist-form-button:hover,
 .checklist-item-submit:hover,
 .checklist-edit-actions button:hover {
-  color: var(--rust);
+  color: var(--silver);  
   transform: translateY(-1px);
 }
 
@@ -78,6 +78,12 @@
   color: var(--dark);
 }
 
+input:focus{
+  border-color: var(--silver);
+  box-shadow: 0 0 0 3px rgba(96, 108, 56, 0.15);
+  outline: none;
+}
+
 .checklist-error {
   width: 100%;
   margin: 0;
@@ -100,12 +106,12 @@
   align-items: center;
   gap: 0.6rem;
   padding: 0.5rem 0.6rem;
-  background: #c9ac7e;
+  background: var(--light-gold);
   border-radius: 5px;
 }
 
 .checklist-item-checkbox {
-  accent-color: var(--olive);
+  accent-color: var(--silver);
 }
 
 .checklist-item-name {
@@ -115,7 +121,7 @@
 }
 
 .checklist-item-name.is-packed {
-  color: var(--olive);
+  color: var(--silver);
   text-decoration: line-through;
 }
 

@@ -12,7 +12,7 @@
 
 .trip-form-page h1 {
   margin-bottom: 1.25rem;
-  color: var(--olive);
+  color: var(--rust);
   font-size: 2rem;
   font-weight: 700;
   outline: none;
@@ -46,8 +46,8 @@
   padding: 0.8rem 0.95rem;
   border: 1px solid #d8d1c2;
   border-radius: 2px;
-  background: var(--cream);
-  color: var(--dark);
+  background: var(--light-gold);
+  color: var(--silver);
   outline: none;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
@@ -59,7 +59,7 @@
 
 .trip-form-page input:focus,
 .trip-form-page textarea:focus {
-  border-color: var(--olive);
+  border-color: var(--silver);
   box-shadow: 0 0 0 3px rgba(96, 108, 56, 0.15);
 }
 
@@ -69,7 +69,7 @@
   padding: 0.9rem 1rem;
   border: none;
   border-radius: 999px;
-  background: var(--olive);
+  background: var(--silver);
   color: #ffffff;
   font-weight: 600;
   cursor: pointer;

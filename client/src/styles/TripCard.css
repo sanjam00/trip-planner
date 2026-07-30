@@ -1,6 +1,6 @@
 
 .trip-card {
-  background: var(--cream);
+  background: var(--rust);
   border: 1px solid rgba(202, 203, 199, 0.2);
   border-radius: 5px;
   padding: 0.9rem 1rem;
@@ -21,7 +21,7 @@
 
 .trip-card h2 {
   margin: 0;
-  color: var(--olive);
+  color: var(--silver);
   font-family: var(--custom-font-text);
   font-size: 1.15rem;
   /* font-weight: 700; */
@@ -32,6 +32,9 @@
   display: flex;
   flex-direction: column;
   gap: 0.35rem;
+  background: var(--light-gold);
+  padding: 0.5rem 0.6rem;
+  border-radius: 5px;
 }
 
 .trip-date {
