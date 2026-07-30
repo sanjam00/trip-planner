@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { apiFetch } from "../../api/api";
+import { dateInputToApiFormat, formatDateForDisplay, formatTimeForDisplay, timeInputToApiFormat } from "../../utils/dateTime";
 
 export default function ItineraryCard({
   tripId, itineraryItem, onItineraryItemUpdated, onItineraryItemDeleted
@@ -22,9 +23,9 @@ export default function ItineraryCard({
         method: 'PATCH',
         body: JSON.stringify({
           activity,
-          start_time: startTime,
-          end_time: endTime,
-          day,
+          start_time: timeInputToApiFormat(startTime),
+          end_time: timeInputToApiFormat(endTime),
+          day: dateInputToApiFormat(day),
         }),
       });
       onItineraryItemUpdated(updated);
@@ -41,38 +42,38 @@ export default function ItineraryCard({
     onItineraryItemDeleted(itineraryItem.id);
   }
 
-  if (editing) {
-    return (
-      <form onSubmit={handleUpdate}>
-        {error && <p style={{ color: 'red' }}>{error}</p>}
+  // if (editing) {
+  //   return (
+  //     <form onSubmit={handleUpdate}>
+  //       {error && <p style={{ color: 'red' }}>{error}</p>}
 
-        <input
-          type="text"
-          value={activity}
-          onChange={(e) => setActivity(e.target.value)}
-          required
-        />
-        <input
-          type="time"
-          value={startTime}
-          onChange={(e) => setStartTime(e.target.value)}
-        />
-        <input
-          type="time"
-          value={endTime}
-          onChange={(e) => setEndTime(e.target.value)}
-        />
-        <input
-          type="date"
-          value={day}
-          onChange={(e) => setDay(e.target.value)}
-        />
+  //       <input
+  //         type="text"
+  //         value={activity}
+  //         onChange={(e) => setActivity(e.target.value)}
+  //         required
+  //       />
+  //       <input
+  //         type="time"
+  //         value={startTime}
+  //         onChange={(e) => setStartTime(e.target.value)}
+  //       />
+  //       <input
+  //         type="time"
+  //         value={endTime}
+  //         onChange={(e) => setEndTime(e.target.value)}
+  //       />
+  //       <input
+  //         type="date"
+  //         value={day}
+  //         onChange={(e) => setDay(e.target.value)}
+  //       />
 
-        <button type="submit">Save</button>
-        <button type="button" onClick={() => setEditing(false)}>Cancel</button>
-      </form>
-    );
-  }
+  //       <button type="submit">Save</button>
+  //       <button type="button" onClick={() => setEditing(false)}>Cancel</button>
+  //     </form>
+  //   );
+  // }
 
   return (
     <div className="itinerary-card">
@@ -88,6 +89,12 @@ export default function ItineraryCard({
           />
           <input
             className="itinerary-edit-input"
+            type="date"
+            value={day}
+            onChange={(e) => setDay(e.target.value)}
+          />
+          <input
+            className="itinerary-edit-input"
             type="time"
             value={startTime}
             onChange={(e) => setStartTime(e.target.value)}
@@ -98,12 +105,6 @@ export default function ItineraryCard({
             value={endTime}
             onChange={(e) => setEndTime(e.target.value)}
           />
-          <input
-            className="itinerary-edit-input"
-            type="date"
-            value={day}
-            onChange={(e) => setDay(e.target.value)}
-          />
 
           <button type="submit">Save</button>
           <button type="button" onClick={() => setEditing(false)}>Cancel</button>
@@ -111,8 +112,7 @@ export default function ItineraryCard({
       ) : (
         <div className="itinerary-item">
           <h3 className="itinerary-activity" onClick={() => setEditing(true)}>{itineraryItem.activity}</h3>
-          <p className="itinerary-item-data" onClick={() => setEditing(true)}>{itineraryItem.start_time}-{itineraryItem.end_time}</p>
-          <p className="itinerary-item-data" onClick={() => setEditing(true)}>{itineraryItem.day}</p>
+          <p className="itinerary-item-data" onClick={() => setEditing(true)}>{formatDateForDisplay(itineraryItem.day)}: {formatTimeForDisplay(itineraryItem.start_time)}-{formatTimeForDisplay(itineraryItem.end_time)}</p>
           <button className="checklist-delete-btn" type="button" onClick={handleDelete}>Delete item</button>
         </div>
       )}
