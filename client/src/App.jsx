@@ -9,6 +9,7 @@ import TripForm from './pages/TripFormPage'
 import TripDetailsPage from './pages/TripDetailsPage'
 import { useAuth } from './context/AuthContext'
 import NotFoundPage from './pages/NotFoundPage'
+import WhoAmIPage from './pages/WhoAmIPage'
 
 export default function App(){
   const { token } = useAuth()
@@ -45,6 +46,14 @@ export default function App(){
           element={
             <ProtectedRoute>
               <TripDetailsPage />
+            </ProtectedRoute>
+          }
+        />
+        < Route
+          path="/whoami"
+          element={
+            <ProtectedRoute>
+              <WhoAmIPage />
             </ProtectedRoute>
           }
         />

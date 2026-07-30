@@ -97,14 +97,6 @@ button:hover::after {
   transform: scaleX(1);
 }
 
-/* body {
-  margin: 0;
-} */
-
-/* #root {
-  min-height: 100vh;
-} */
-
 main,
 .page-shell,
 .trip-details-page,
