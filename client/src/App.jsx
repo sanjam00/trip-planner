@@ -8,6 +8,7 @@ import NavBar from './components/layout/Navbar'
 import TripForm from './pages/TripFormPage'
 import TripDetailsPage from './pages/TripDetailsPage'
 import { useAuth } from './context/AuthContext'
+import NotFoundPage from './pages/NotFoundPage'
 
 export default function App(){
   const { token } = useAuth()
@@ -17,8 +18,12 @@ export default function App(){
       {token ? <NavBar /> : null}
       <div className="app-shell">
       <Routes>
+        < Route path="/*" element={<NotFoundPage />} />
         < Route path="/login" element={ <LoginPage /> } />
         < Route path="/signup" element={ <SignupPage /> } />
+        {/* < Route element={<ProtectedRoute />}>
+          <Route path="/trips" element={<TripsPage />}/>
+        </Route> */}
         < Route 
           path="/trips"
           element={
