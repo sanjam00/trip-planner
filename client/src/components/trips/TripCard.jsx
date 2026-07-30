@@ -1,6 +1,6 @@
 //display a card on TripsPage (fetches all trips)
 import "../../styles/TripCard.css";
-import { dateInputToApiFormat, formatDateForDisplay, timeInputToApiFormat } from "../../utils/dateTime";
+import { formatDateForDisplay } from "../../utils/dateTime";
 
 export default function TripCard({ trip }){
 
