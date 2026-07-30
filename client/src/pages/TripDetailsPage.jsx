@@ -8,6 +8,7 @@ import "../styles/TripDetailsPage.css";
 import "../styles/ChecklistItinerary.css";
 import ChecklistSection from "../components/checklists/ChecklistSection";
 import ChecklistForm from "../components/checklists/ChecklistForm";
+import ItinerarySection from "../components/itinerary/ItinerarySection";
 
 export default function TripDetailsPage(){
   const { trip_id } = useParams();  // grabs trip_id from /trips/<trip_id>
@@ -32,6 +33,7 @@ export default function TripDetailsPage(){
       .finally(() => setLoading(false));
   }, [trip_id, token])
 
+  // checklist and checklistitem CRUD
   function handleChecklistCreated(newChecklist){
     setTripData(prev => ({
       ...prev,
@@ -54,6 +56,15 @@ export default function TripDetailsPage(){
       checklists: prev.checklists.filter(c => c.id !== checklistId)
     }));
   }
+  
+  function handleItemCreated(checklistId, newItem){
+    setTripData(prev => ({
+      ...prev,
+      checklists: prev.checklists.map(c =>
+        c.id !== checklistId ? c : {...c, items: [...c.items, newItem]}
+      )
+    }));
+  }
 
   function handleItemChanged(checklistId, updatedItem){
     setTripData( prev => ({
@@ -67,21 +78,36 @@ export default function TripDetailsPage(){
     }));
   }
 
-  function handleItemCreated(checklistId, newItem){
-    setTripData(prev => ({
-      ...prev,
-      checklists: prev.checklists.map(c =>
-        c.id !== checklistId ? c : {...c, items: [...c.items, newItem]}
-      )
-    }));
-  }
-
   function handleItemDeleted(checklistId, itemId){
     setTripData(prev => ({
       ...prev,
       checklists: prev.checklists.map(c => 
         c.id !== checklistId ? c : {...c, items: c.items.filter(i => i.id !== itemId)}
       )
+    }));
+  }
+
+  // itinerary item CRUD
+  function handleItineraryItemCreated(newItem) {
+    setTripData(prev => ({
+      ...prev,
+      items: [...prev.items, { ...newItem, itinerary_items: [] }]
+    }));
+  }
+
+  function handleItineraryItemUpdated(updatedItem){
+    setTripData(prev => ({
+      ...prev,
+      items: prev.items.map(i => 
+        i.id === updatedItem.id ? {...i, ...updatedItem} : i
+      )
+    }))
+  }
+
+  function handleItineraryItemDeleted(itemId) {
+    setTripData(prev => ({
+      ...prev,
+      items: prev.items.filter(i => i.id !== itemId)
     }));
   }
 
@@ -187,7 +213,7 @@ export default function TripDetailsPage(){
     {/* itinerary */}
       <div className={activeTab === 3 ? "show-content" : "content"}>
         <div className="trip-itinerary">
-          {tripData.itinerary_items.length === 0 ? (
+          {/* {tripData.itinerary_items.length === 0 ? (
             <p className="trip-empty-state">No itinerary yet.</p>
           ) : (
               tripData.itinerary_items.map(item => (
@@ -197,7 +223,13 @@ export default function TripDetailsPage(){
                 <p className="trip-itinerary-time">{item.start_time} - {item.end_time}</p>
               </div>
             ))
-          )}
+          )} */}
+          <ItinerarySection 
+            tripId={trip_id}
+            itineraryItems={tripData.itinerary_items}
+            onItineraryItemCreated={handleItineraryItemCreated}
+            onItineraryItemUpdated={handleItineraryItemUpdated}
+            onItineraryItemDeleted={handleItineraryItemDeleted}/>
         </div>
       </div>
     </div>
