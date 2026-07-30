@@ -200,13 +200,6 @@ export default function TripDetailsPage(){
     {/* overview */}
     <div className={activeTab === 1 ? "show-content" : "content"}>
       <div className="trip-details-content">
-        <TripEditForm
-          tripId={trip_id}
-          trip={tripData}
-          onTripUpdated={handleTripUpdated}
-          onTripDeleted={handleTripDeleted}
-        />
-
         <section className="trip-details-card">
           <h2>Description</h2>
           <p>{tripData.description || "No description yet."}</p>
@@ -216,6 +209,13 @@ export default function TripDetailsPage(){
           <h2>Notes</h2>
           <p>{tripData.notes || "No notes yet."}</p>
         </section>
+        
+        <TripEditForm
+          tripId={trip_id}
+          trip={tripData}
+          onTripUpdated={handleTripUpdated}
+          onTripDeleted={handleTripDeleted}
+        />
       </div>
     </div>
 

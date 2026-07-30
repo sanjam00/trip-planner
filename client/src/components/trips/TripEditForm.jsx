@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { apiFetch } from "../../api/api";
-import { timeInputToApiFormat, dateInputToApiFormat } from "../../utils/dateTime";
+import { dateInputToApiFormat } from "../../utils/dateTime";
 import { useNavigate } from "react-router";
+import "../../styles/TripEditForm.css";
 
 export default function TripEditForm({ tripId, trip, onTripUpdated, onTripDeleted }) {
   const [editing, setEditing] = useState(false);
@@ -59,27 +60,37 @@ export default function TripEditForm({ tripId, trip, onTripUpdated, onTripDelete
 
   if (!editing) {
     return (
-      <div>
-        {error && <p style={{ color: 'red' }}>{error}</p>}
-        <button onClick={() => setEditing(true)}>Edit Trip</button>
-        <button onClick={handleDelete}>Delete Trip</button>
+      <div className="trip-edit-actions-toggle">
+        {error && <p className="trip-edit-error">{error}</p>}
+        <button className="trip-edit-button" type="button" onClick={() => setEditing(true)}>Edit Trip</button>
+        <button className="trip-edit-button trip-edit-delete-button" type="button" onClick={handleDelete}>Delete Trip</button>
       </div>
     );
   }
 
   return (
-    <form onSubmit={handleSave}>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+    <div className="trip-edit-form-wrapper">
+      <form className="trip-edit-form" onSubmit={handleSave}>
+        {error && <p className="trip-edit-error">{error}</p>}
 
-      <input value={title} onChange={(e) => setTitle(e.target.value)} required />
-      <input value={destination} onChange={(e) => setDestination(e.target.value)} />
-      <textarea value={description} onChange={(e) => setDescription(e.target.value)} />
-      <input type="date" value={startDate} onChange={(e) => setStartDate(e.target.value)} />
-      <input type="date" value={endDate} onChange={(e) => setEndDate(e.target.value)} />
-      <textarea value={notes} onChange={(e) => setNotes(e.target.value)} />
+        <div className="trip-edit-form-row">
+          <input className="trip-edit-input" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Trip title" required />
+        </div>
 
-      <button type="submit" disabled={loading}>{loading ? "Saving..." : "Save"}</button>
-      <button type="button" onClick={() => setEditing(false)}>Cancel</button>
-    </form>
+        <div className="trip-edit-form-row">
+          <input className="trip-edit-input" value={destination} onChange={(e) => setDestination(e.target.value)} placeholder="Destination" />
+          <input className="trip-edit-input" type="date" value={startDate} onChange={(e) => setStartDate(e.target.value)} />
+          <input className="trip-edit-input" type="date" value={endDate} onChange={(e) => setEndDate(e.target.value)} />
+        </div>
+
+        <textarea className="trip-edit-textarea" value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Description" />
+        <textarea className="trip-edit-textarea" value={notes} onChange={(e) => setNotes(e.target.value)} placeholder="Notes" />
+
+        <div className="trip-edit-actions">
+          <button className="trip-edit-button" type="submit" disabled={loading}>{loading ? "Saving..." : "Save"}</button>
+          <button className="trip-edit-button trip-edit-cancel-button" type="button" onClick={() => setEditing(false)}>Cancel</button>
+        </div>
+      </form>
+    </div>
   );
 }

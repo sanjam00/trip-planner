@@ -1,0 +1,90 @@
+.trip-edit-form-wrapper {
+  animation: trip-edit-form-appear 220ms ease-out;
+}
+
+.trip-edit-form,
+.trip-edit-actions-toggle {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1rem;
+  background: var(--cream);
+  border: 1px solid rgba(202, 203, 199, 0.2);
+  border-radius: 5px;
+  box-shadow: 0 8px 20px rgba(202, 203, 199, 0.2);
+}
+
+.trip-edit-actions-toggle {
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.trip-edit-form-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.trip-edit-input,
+.trip-edit-textarea {
+  flex: 1 1 220px;
+  min-width: 0;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid rgba(202, 203, 199, 0.6);
+  border-radius: 5px;
+  background: #fff;
+  color: var(--dark);
+  font: inherit;
+}
+
+.trip-edit-textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.trip-edit-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.trip-edit-button {
+  background-color: var(--rust);
+  color: var(--silver);
+  border: 1px solid rgba(202, 203, 199, 0.5);
+  border-radius: 5px;
+  padding: 0.45rem 0.7rem;
+  margin: 0;
+  cursor: pointer;
+  transition: color 180ms ease, transform 180ms ease;
+}
+
+.trip-edit-button:hover {
+  color: var(--silver);
+  transform: translateY(-1px);
+}
+
+.trip-edit-delete-button,
+.trip-edit-cancel-button {
+  background-color: var(--light-gold);
+  color: var(--rust);
+}
+
+.trip-edit-error {
+  margin: 0;
+  color: var(--rust);
+  font-size: 0.95rem;
+}
+
+@keyframes trip-edit-form-appear {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
