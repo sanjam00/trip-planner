@@ -1,7 +1,7 @@
 // details for a singular trip
 
 import { useState, useEffect, act } from "react"
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { useAuth } from "../context/AuthContext";
 import { apiFetch } from "../api/api";
 import "../styles/TripDetailsPage.css";
@@ -9,10 +9,13 @@ import "../styles/ChecklistItinerary.css";
 import ChecklistSection from "../components/checklists/ChecklistSection";
 import ChecklistForm from "../components/checklists/ChecklistForm";
 import ItinerarySection from "../components/itinerary/ItinerarySection";
+import TripEditForm from "../components/trips/TripEditForm";
+import { formatDateForDisplay } from "../utils/dateTime";
 
 export default function TripDetailsPage(){
   const { trip_id } = useParams();  // grabs trip_id from /trips/<trip_id>
   const { token } = useAuth();
+  const navigate = useNavigate();
   const [tripData, setTripData] = useState(null);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -32,6 +35,21 @@ export default function TripDetailsPage(){
       })
       .finally(() => setLoading(false));
   }, [trip_id, token])
+
+  // patch and delete for a single trip
+
+  function handleTripUpdated(updatedTrip) {
+    setTripData(prev => ({ ...prev, ...updatedTrip }));
+  }
+
+  async function handleTripDeleted() {
+    try {
+      await apiFetch(`/trips/${tripId}`, token, { method: 'DELETE' });
+      onTripDeleted();
+    } catch (err) {
+      setError(err.message);
+    }
+  }
 
   // checklist and checklistitem CRUD
   function handleChecklistCreated(newChecklist){
@@ -161,7 +179,7 @@ export default function TripDetailsPage(){
             </div>
             <div className="trip-details-meta-item">
               <span className="trip-details-label">Dates</span>
-              <p>{tripData.start_date} – {tripData.end_date}</p>
+            <p>{formatDateForDisplay(tripData.start_date)} – {formatDateForDisplay(tripData.end_date)}</p>
             </div>
           </div>
         </header>
@@ -180,19 +198,26 @@ export default function TripDetailsPage(){
       {/* </div> */}
 
     {/* overview */}
-      <div className={activeTab === 1 ? "show-content" : "content"}>
-        <div className={"trip-details-content"}>
-          <section className="trip-details-card">
-            <h2>Description</h2>
-            <p>{tripData.description || "No description yet."}</p>
-          </section>
+    <div className={activeTab === 1 ? "show-content" : "content"}>
+      <div className="trip-details-content">
+        <TripEditForm
+          tripId={trip_id}
+          trip={tripData}
+          onTripUpdated={handleTripUpdated}
+          onTripDeleted={handleTripDeleted}
+        />
 
-          <section className="trip-details-card">
-            <h2>Notes</h2>
-            <p>{tripData.notes || "No notes yet."}</p>
-          </section>
-        </div>
+        <section className="trip-details-card">
+          <h2>Description</h2>
+          <p>{tripData.description || "No description yet."}</p>
+        </section>
+
+        <section className="trip-details-card">
+          <h2>Notes</h2>
+          <p>{tripData.notes || "No notes yet."}</p>
+        </section>
       </div>
+    </div>
 
     {/* checklists */}
       <div className={activeTab === 2 ? "show-content" : "content"}>
@@ -213,17 +238,6 @@ export default function TripDetailsPage(){
     {/* itinerary */}
       <div className={activeTab === 3 ? "show-content" : "content"}>
         <div className="trip-itinerary">
-          {/* {tripData.itinerary_items.length === 0 ? (
-            <p className="trip-empty-state">No itinerary yet.</p>
-          ) : (
-              tripData.itinerary_items.map(item => (
-              <div key={item.id} className="trip-itinerary-card">
-                <h3>{item.activity}</h3>
-                <p className="trip-itinerary-day">{item.day}</p>
-                <p className="trip-itinerary-time">{item.start_time} - {item.end_time}</p>
-              </div>
-            ))
-          )} */}
           <ItinerarySection 
             tripId={trip_id}
             itineraryItems={tripData.itinerary_items}
