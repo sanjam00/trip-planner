@@ -1,0 +1,51 @@
+
+.whoami-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 1.5rem 3.5rem;
+}
+
+.whoami-card {
+  width: min(100%, 480px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.95rem;
+  text-align: center;
+  padding: 1.35rem 1.5rem;
+  border-radius: 5px;
+  background: var(--rust);
+  box-shadow: 0 1px 2px rgba(33, 55, 49, 0.06);
+}
+
+.whoami-avatar img {
+  width: 110px;
+  height: 110px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid var(--light-gold);
+  background: var(--silver);
+}
+
+.whoami-info h2 {
+  margin: 0;
+  color: var(--silver);
+}
+
+.whoami-info p {
+  margin: 0;
+  color: var(--silver);
+  line-height: 1.7;
+}
+
+@media (max-width: 640px) {
+  .whoami-page {
+    padding: 1rem 0.9rem 2rem;
+  }
+
+  .whoami-card {
+    width: 100%;
+  }
+}
