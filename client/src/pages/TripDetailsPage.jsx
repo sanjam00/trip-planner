@@ -37,7 +37,6 @@ export default function TripDetailsPage(){
   }, [trip_id, token])
 
   // patch and delete for a single trip
-
   function handleTripUpdated(updatedTrip) {
     setTripData(prev => ({ ...prev, ...updatedTrip }));
   }

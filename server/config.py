@@ -7,6 +7,7 @@ from flask_jwt_extended import JWTManager
 from flask_cors import CORS
 from sqlalchemy import MetaData
 from dotenv import load_dotenv
+from datetime import timedelta
 import os
 
 # load .env
@@ -19,6 +20,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False # turns off modification tracking which wastes memory
 
 app.config['JWT_SECRET_KEY'] = os.environ.get("JWT_SECRET_KEY") # not hard coding a secret key
+app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(hours=1)
 
 app.json.compact = False #pretty json
 
