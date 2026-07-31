@@ -1,13 +1,13 @@
 # Trip Planner
 
-A full-stack web app for planning trips — create trips, build packing/to-do checklists, and schedule itinerary items, all scoped to your own account.
+A full-stack web app for planning trips, catering to outdoor trips such as camping. Create trips, build packing/to-do checklists, and schedule itinerary items, all scoped to your own account.
 
 ## Features
 
 - **User authentication** — signup/login with JWT-based sessions
 - **Trips** — create, view, edit, and delete trips (title, destination, dates, description, notes)
 - **Checklists** — add multiple checklists per trip (e.g. "Packing List," "Documents"), each with its own items
-- **Checklist items** — add items to a checklist and toggle their status (`packed`, `not packed`, `planned`)
+- **Checklist items** — add items to a checklist and toggle their status (`packed` and `not packed`)
 - **Itinerary** — schedule activities per trip with a date, start time, and end time
 - All trip data (checklists, checklist items, itinerary items) is scoped to the trip's owner — users can only see and modify their own trips
 
@@ -30,42 +30,65 @@ A full-stack web app for planning trips — create trips, build packing/to-do ch
 
 ```
 trip-planner/
-├── server/
-│   ├── config.py                # Flask app, db, jwt, bcrypt, api setup
-│   ├── app.py                   # route registration
-│   ├── seed.py                  # populates the db with fake data (Faker)
-│   ├── models/
-│   │   ├── User.py
-│   │   ├── Trip.py
-│   │   ├── CheckList.py
-│   │   ├── CheckListItem.py     # includes the Status enum
-│   │   ├── ItineraryItem.py
-│   │   └── schemas/             # Marshmallow schemas
-│   ├── controllers/
-│   │   ├── Signup.py / Login.py / WhoAmI.py
-│   │   ├── TripIndex.py / TripById.py
-│   │   ├── CheckListIndex.py / CheckListById.py
-│   │   ├── CheckListItemIndex.py / CheckListItemById.py
-│   │   └── ItineraryItemIndex.py / ItineraryItemById.py
-│   └── migrations/               # Alembic migration history
-│
-└── client/ (or project root, depending on setup)
-    └── src/
+├── client/ (or project root, depending on setup) 
+    ├── dist/
+    ├── node_modules/
+    ├── public/
+    ├── src/
         ├── api/
-        │   └── api.js            # fetch wrapper, attaches Authorization header
-        ├── context/
-        │   └── AuthContext.jsx   # holds token/user, exposes login/signup/logout
-        ├── utils/
-        │   └── dateTime.js       # formats ISO dates/times for display vs. API
+            └── api.js            # fetch wrapper, attaches Authorization header
         ├── components/
-        │   ├── layout/           # Navbar, ProtectedRoute
-        │   ├── trips/            # TripCard, TripForm, TripEditForm
-        │   ├── checklists/       # ChecklistSection, ChecklistCard, ChecklistForm, ChecklistItemRow, ChecklistItemForm
-        │   └── itinerary/        # ItinerarySection, ItineraryCard
-        └── pages/
-            ├── LoginPage.jsx / SignupPage.jsx
+            ├── checklists/       # ChecklistSection, ChecklistCard, ChecklistForm, ChecklistItemRow, ChecklistItemForm
+            ├── itinerary/        # ItinerarySection, ItineraryItemCard, ItineraryItemForm
+            ├── layout/           # Navbar, ProtectedRoute
+            └── trips/            # TripCard, TripEditForm
+        ├── context/
+            └── AuthContext.jsx   # holds token/user, exposes login/signup/logout
+        ├── fonts/                # custom fonts
+        ├── pages/
+            ├── LoginPage.jsx
+            ├── NotFoundPage.jsx
+            ├── SignupPage.jsx
+            ├── TripDetailsPage.jsx
+            ├── TripFormPage.jsx
             ├── TripsPage.jsx
-            └── TripDetailsPage.jsx
+            └── WhoAmIPage.jsx
+        ├── styles/               # styling for all pages and components
+        ├── utils/
+            └── dateTime.js       # formats ISO dates/times for display vs. API
+        ├── App.css
+        ├── App.jsx               # holds BrowserRouter
+        ├── index.css             # universal styles and variables
+        └── main.jsx
+    ├── index.html
+    ├── package-lock.json
+    ├── package.json
+    ├── vite.config.jsx
+├── server/
+    ├── __pycache__/
+    ├── controllers/
+        ├── __init__.py
+        ├── CheckListIndex.py / CheckListById.py
+        ├── CheckListItemIndex.py / CheckListItemById.py
+        ├── ItineraryItemIndex.py / ItineraryItemById.py
+        ├── Signup.py / Login.py / WhoAmI.py
+        └── TripIndex.py / TripById.py
+    ├── instance/
+        └── app.db                # database
+    ├── migrations/               # Alembic migration history
+    ├── models/
+        ├── schemas/              # Marshmallow schemas
+        ├── __init__.py
+        ├── CheckList.py
+        ├── CheckListItem.py
+        ├── ItineraryItem.py
+        ├── Trip.py
+        ├── User.py
+    ├── app.py                    # route registration
+    ├── config.py                 # Flask app, db, jwt, bcrypt, api setup
+    ├── seed.py                   # populates the db with fake data (Faker)
+    └── requirements.txt
+├── README.md
 ```
 
 ## Getting Started
@@ -140,13 +163,30 @@ All routes except `/signup` and `/login` require a `Authorization: Bearer <token
 4. Every subsequent authenticated request attaches `Authorization: Bearer <token>` via the shared `apiFetch` wrapper
 5. `ProtectedRoute` redirects unauthenticated users to `/login` before they can reach trip pages
 
-## Known Limitations / Future Improvements
+## Known Limitations
 
 - Token is stored in memory only — refreshing the page currently logs the user out (a candidate for persisting to `localStorage` or adding refresh tokens)
 - No image/photo support for trips yet
 - No collaborative/shared trips between multiple users
 - No timezone handling for itinerary times (assumes local time)
+- No navigation buttons to navigate back from a trip to trip board
+- Error handling is not user friendly
+
+## Future Improvements
+
+- Social features including collaboration on trips, direct-messaging, following/followers, etc.
+- Map features such as displaying location for a trip, searching locations, and popular locations with reviews
+- Budget section for a trip
+- Weather features that notify user regarding bad weather
+- Currency exchange
+- Calendar displaying the dates of all trips
+- Sorting and search of trips
+- Test suites
 
 ## License
 
-This project was built as a capstone project and is not currently licensed for reuse.
+This project was built as a capstone project for Flatiron School's Software Engineering course and is not currently licensed for reuse.
+
+## Author
+
+Sanaeya James

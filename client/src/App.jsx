@@ -22,9 +22,6 @@ export default function App(){
         < Route path="/*" element={<NotFoundPage />} />
         < Route path="/login" element={ <LoginPage /> } />
         < Route path="/signup" element={ <SignupPage /> } />
-        {/* < Route element={<ProtectedRoute />}>
-          <Route path="/trips" element={<TripsPage />}/>
-        </Route> */}
         < Route 
           path="/trips"
           element={
