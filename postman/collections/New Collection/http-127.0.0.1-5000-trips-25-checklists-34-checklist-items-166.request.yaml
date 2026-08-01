@@ -1,0 +1,19 @@
+$kind: http-request
+name: http://127.0.0.1:5000/trips/25/checklists/34/checklist-items/166
+description: ""
+url: http://127.0.0.1:5000/trips/25/checklists/34/checklist-items/166
+method: PATCH
+body:
+  type: json
+  content: "{\r
+
+    \    \"item_name\": \"t-shirts\",\r
+
+    \    \"status\": \"PACKED\"\r
+
+    }"
+auth:
+  type: bearer
+  credentials:
+    token: "{{json_web_token_0wrc}}"
+order: 4503592868337623

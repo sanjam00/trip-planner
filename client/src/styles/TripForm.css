@@ -1,0 +1,97 @@
+
+.trip-form-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  color: var(--dark);
+  font-family: Inter, Arial, sans-serif;
+}
+
+.trip-form-page h1 {
+  margin-bottom: 1.25rem;
+  color: var(--rust);
+  font-size: 2rem;
+  font-weight: 700;
+  outline: none;
+  border: none;
+}
+
+.trip-form-page form {
+  width: min(100%, 560px);
+  padding: 2rem;
+  background: #ffffff;
+  border: 1px solid #eee7d7;
+  border-radius: 5px;
+  box-shadow: 0 12px 30px rgba(40, 54, 25, 0.08);
+}
+
+.trip-form-page form > div {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.trip-form-page label {
+  margin-bottom: 0.45rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--rust);
+}
+
+.trip-form-page input,
+.trip-form-page textarea {
+  padding: 0.8rem 0.95rem;
+  border: 1px solid #d8d1c2;
+  border-radius: 2px;
+  background: var(--light-gold);
+  color: var(--silver);
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.trip-form-page textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.trip-form-page input:focus,
+.trip-form-page textarea:focus {
+  border-color: var(--silver);
+  box-shadow: 0 0 0 3px rgba(96, 108, 56, 0.15);
+}
+
+/* .trip-form-page button {
+  width: 100%;
+  margin-top: 0.5rem;
+  padding: 0.9rem 1rem;
+  border: none;
+  border-radius: 999px;
+  background: var(--silver);
+  color: #ffffff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+} */
+
+/* .trip-form-page button:hover {
+  background: var(--dark);
+  transform: translateY(-1px);
+} */
+
+@media only screen and (max-width: 600px) {
+  .trip-form-page {
+    padding: 1.25rem;
+    margin: 1.25rem;
+  }
+
+  .trip-form-page h1 {
+    font-size: 1.75rem;
+  }
+
+  .trip-form-page form {
+    padding: 1.5rem;
+  }
+}

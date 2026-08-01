@@ -1,0 +1,39 @@
+.trips-page {
+  min-height: 100vh;
+  padding: 2rem;
+  color: var(--dark);
+}
+
+.trips-page h1 {
+  margin: 1.5em 0;
+  color: var(--rust);
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.trips-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+}
+
+@media only screen and (min-width: 900px) {
+  .trips-grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .trips-page {
+    padding: 1.25rem;
+    margin: 1.25rem;
+  }
+
+  .trips-page h1 {
+    font-size: 1.75rem;
+  }
+
+  .trips-grid {
+    grid-template-columns: 1fr;
+  }
+}

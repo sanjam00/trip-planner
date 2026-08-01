@@ -1,0 +1,10 @@
+$kind: http-request
+name: http://127.0.0.1:5000/trips/25/checklists
+description: ""
+url: http://127.0.0.1:5000/trips/25/checklists
+method: GET
+auth:
+  type: bearer
+  credentials:
+    token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc4NDYwOTkyMywianRpIjoiNTUyY2MxYzEtZDU1MS00ZjU4LWJjNGItMDU5ZWY2MWE1OTNhIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEzIiwibmJmIjoxNzg0NjA5OTIzLCJjc3JmIjoiZGZlZWE5ODgtNzdiZC00MmRjLThiYWYtZDNlYjliODQ0YjRlIiwiZXhwIjoxNzg0NjEwODIzfQ.hC5IRcCVYl2DbiJSxwrTJfnA1PCAIqQpC4NLUatdImg
+order: 4503301172976052

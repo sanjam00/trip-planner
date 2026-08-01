@@ -1,111 +1,121 @@
 :root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
-
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
-
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
-  color-scheme: light dark;
-  color: var(--text);
-  background: var(--bg);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-
-  @media (max-width: 1024px) {
-    font-size: 16px;
-  }
+  /* --olive: #778745; */
+  /* --dark-olive: #606C38; */
+  /* --cream: #fffaea;   */
+  --silver: #e9e9e9;
+  --dark: #42582a;
+  --rust: #773004;
+  --light-gold: #c3a36f;
+  --gold: #BB9457;
+  --custom-font-title: 'VaneDream-Regular', 'Garamond', serif;
+  --custom-font-headers: 'NationalPark-Regular', 'Trebuchet MS', 'Monsterrat', serif;
+  --custom-font-text: 'Nunito-Sans Light', sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
-
-  #social .button-icon {
-    filter: invert(1) brightness(2);
-  }
+/* custom font for the app title only */
+@font-face {
+  font-family: 'VaneDream-Regular';
+  src: url('fonts/VaneDream-Regular.ttf') format(truetype);
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
 }
 
-body {
-  margin: 0;
+/* custom font for h1 elements */
+@font-face {
+  font-family: 'NationalPark-Regular';
+  src: url('fonts/national-park/NationalPark-Regular.otf') format(opentype);
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
 }
 
-#root {
-  width: 1126px;
-  max-width: 100%;
-  margin: 0 auto;
+/* @font-face {
+  font-family: 'Mallio-Demo';
+  src: url('fonts/mallio-demo/Mallio\ Demo.otf') format(opentype);
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+} */
+
+/* custom font for text */
+@font-face {
+  font-family: 'Nunito-Sans Light';
+  src: url('fonts/nunito-sans.light.ttf') format(opentype);
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+#site-name{
+  font-family: "VaneDream-Regular";
+  font-weight: lighter;
+  font-size: 3.5em;
   text-align: center;
-  border-inline: 1px solid var(--border);
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
+}
+
+h1{
+  font-family: var(--custom-font-headers);
+}
+
+h2, p, label {
+  font-family: var(--custom-font-text);
+}
+
+button {
+  font-family: var(--custom-font-text);
+  font-size: 1rem;
+  position: relative;
+  padding: .5em 1em;
+  margin: .25em;
+  background-color: #ffffff;
+  color: var(--dark);
+  border: none;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+button::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--rust);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.3s ease;
+}
+
+button:hover {
+  color: #7D7283;
+  transform: translateY(-1px);
+  cursor: pointer;
+}
+
+button:hover::after {
+  transform: scaleX(1);
+}
+
+main,
+.page-shell,
+.trip-details-page,
+.trips-page,
+.login-page,
+.signup-page {
+  /* width: min(1100px, 100%); */
+  margin: 0 auto;
+  padding: 0 2rem;
   box-sizing: border-box;
 }
 
-h1,
-h2 {
-  font-family: var(--heading);
-  font-weight: 500;
-  color: var(--text-h);
-}
-
-h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
+@media (min-width: 769px) {
+  main,
+  .page-shell,
+  .trip-details-page,
+  .trips-page,
+  .login-page,
+  .signup-page {
+    width: min(1200px, calc(100% - 15rem));
   }
-}
-h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
-  margin: 0 0 8px;
-  @media (max-width: 1024px) {
-    font-size: 20px;
-  }
-}
-p {
-  margin: 0;
-}
-
-code,
-.counter {
-  font-family: var(--mono);
-  display: inline-flex;
-  border-radius: 4px;
-  color: var(--text-h);
-}
-
-code {
-  font-size: 15px;
-  line-height: 135%;
-  padding: 4px 8px;
-  background: var(--code-bg);
 }

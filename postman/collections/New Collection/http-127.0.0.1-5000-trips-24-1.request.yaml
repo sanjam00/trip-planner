@@ -1,0 +1,19 @@
+$kind: http-request
+name: http://127.0.0.1:5000/trips/24
+description: ""
+url: http://127.0.0.1:5000/trips/24
+method: PATCH
+body:
+  type: json
+  content: "{\r
+
+    \    \"title\": \"The Best Trip Ever: Take 2\",\r
+
+    \    \"notes\": \"anna can't come. jacob, eli, and manny!\"\r
+
+    }"
+auth:
+  type: bearer
+  credentials:
+    token: "{{json_web_token_096y}}"
+order: 4494509866437053

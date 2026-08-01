@@ -1,0 +1,19 @@
+$kind: http-request
+name: http://127.0.0.1:5000/signup
+description: ""
+url: http://127.0.0.1:5000/signup
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \    \"username\": \"jumping_joy\",\r
+
+    \    \"email\": \"joyjoy@gmail.com\",\r
+
+    \    \"password\": \"strongpassword123456\",\r
+
+    \    \"password_confirmation\": \"strongpassword123456\"\r
+
+    }"
+order: 2237255707552438

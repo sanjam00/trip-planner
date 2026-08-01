@@ -1,0 +1,17 @@
+$kind: http-request
+name: http://127.0.0.1:5000/trips/25/checklists
+description: ""
+url: http://127.0.0.1:5000/trips/31/checklists
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \ \"title\": \"clothes list\"   \r
+
+    }"
+auth:
+  type: bearer
+  credentials:
+    token: "{{json_web_token_096y}}"
+order: 4501470293152130
